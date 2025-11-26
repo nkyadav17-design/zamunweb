@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide horizontal scrollbar but keep scroll functionality */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE/Edge */
+  scrollbar-width: none;    /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;            /* Chrome/Safari */
+}
+
+
+/* -------- Blog Content Styling -------- */
+
+.blog-content {
+  /* base typography */
+ 
+  line-height: 1.8;
+  font-size: 16px;
+  color: #f7f7f7;
+}
+
+/* Paragraphs */
+.blog-content p {
+  margin-bottom: 1.25rem;
+}
+
+/* Headings */
+.blog-content h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+
+.blog-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Lists */
+.blog-content ul,
+.blog-content ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding-left: 0;
+}
+
+.blog-content li {
+  margin-bottom: 0.35rem;
+}
+
+/* Blockquotes */
+.blog-content blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid #818cf8; /* indigo-400 */
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem;
+  font-style: italic;
+}
+
+/* Links */
+.blog-content a {
+  color: #a5b4fc; /* indigo-300 */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.blog-content a:hover {
+  color: #c4b5fd; /* indigo-200 */
+}
+
+/* Images inside content */
+.blog-content img {
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+}
+
+/* Horizontal rule */
+.blog-content hr {
+  border-color: rgba(255, 255, 255, 0.08);
+  margin: 2rem 0;
+}
+
+/* Tables */
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+.blog-content th,
+.blog-content td {
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  padding: 0.5rem 0.75rem;
+}
+
+.blog-content th {
+  background: rgba(15, 23, 42, 0.7);
+  font-weight: 600;
+}
+
+/* Code blocks (if any) */
+.blog-content pre {
+  background: #020617;
+  padding: 1rem 1.25rem;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+}
+
+
+
+
+
+
+
+
