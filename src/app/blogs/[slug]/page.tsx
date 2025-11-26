@@ -1,11 +1,12 @@
 "use client";
 
-import { sanityClient } from "@/sanity/lib/client";
+import { useEffect, useState } from "react";
+import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
-import { useEffect, useState } from "react";
 import { FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { sanityClient } from "@/sanity/lib/client"; // ✅ path same rakho jo tum client.ts me use kar rahe ho
 
 type Post = {
   title: string;
@@ -24,8 +25,22 @@ type LatestPost = {
   slug: { current: string };
 };
 
-export default function BlogDetailPage({ params }: { params: { slug: string } }) {
-  const { slug } = params;
+export default function BlogDetailPage() {
+  const params = useParams<{ slug: string }>();
+
+  // params.slug can be string | string[] | undefined
+  const rawSlug = params?.slug;
+  const slug =
+    Array.isArray(rawSlug) ? rawSlug[0] : (rawSlug as string | undefined);
+
+  // Agar slug na mile to simple fallback
+  if (!slug) {
+    return (
+      <div className="min-h-screen bg-[#0B0B10] text-white flex items-center justify-center">
+        <p>Invalid blog URL.</p>
+      </div>
+    );
+  }
 
   // TODO: change to your live domain
   const baseUrl = "https://yourdomain.com";
@@ -38,7 +53,8 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
   // ---------- Load post + latest ----------
   useEffect(() => {
     async function load() {
-      const data = await sanityClient.fetch(
+      // Single post
+      const data: Post | null = await sanityClient.fetch(
         `*[_type == "post" && slug.current == $slug][0]{
           title,
           "image": mainImage.asset->url,
@@ -54,7 +70,8 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
 
       setPost(data);
 
-      const more = await sanityClient.fetch(
+      // Latest 3 other posts
+      const more: LatestPost[] = await sanityClient.fetch(
         `*[_type == "post" && slug.current != $slug]
           | order(coalesce(publishedAt, _createdAt) desc)[0...3]{
             title,
@@ -70,11 +87,11 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
     load();
   }, [slug]);
 
-  // ---------- Build TOC ----------
+  // ---------- Build TOC from headings ----------
   useEffect(() => {
     if (!post) return;
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       const headings = Array.from(
         document.querySelectorAll<HTMLElement>("article h2, article h3")
       );
@@ -94,11 +111,13 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
 
       setToc(tocItems);
     }, 100);
+
+    return () => clearTimeout(timeout);
   }, [post]);
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-[#0B0B10] text-white p-10">
+      <div className="min-h-screen bg-[#0B0B10] text-white flex items-center justify-center">
         Loading...
       </div>
     );
@@ -126,9 +145,7 @@ export default function BlogDetailPage({ params }: { params: { slug: string } })
 
   return (
     <main className="min-h-screen bg-[#0B0B10] text-white flex justify-center">
-      {/* wider gap & nicer proportions */}
       <div className="max-w-[1400px] w-full px-6 py-16 grid grid-cols-1 md:grid-cols-[minmax(0,2.2fr)_minmax(0,0.9fr)] gap-12">
-
         {/* ---------------- MAIN CONTENT (LEFT) ---------------- */}
         <div>
           <Link
