@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { PortableText } from "@portabletext/react";
+import { useEffect, useState } from "react";
 import { FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
-import { sanityClient } from "@/sanity/lib/client"; // ✅ path same rakho jo tum client.ts me use kar rahe ho
+import { sanityClient } from "@/sanity/lib/client";
 
 type Post = {
   title: string;
@@ -20,27 +20,15 @@ type Post = {
 };
 
 type LatestPost = {
+  _id: string;
   title: string;
   image?: string;
-  slug: { current: string };
+  slug?: { current?: string }; // 👈 slug optional
 };
 
 export default function BlogDetailPage() {
   const params = useParams<{ slug: string }>();
-
-  // params.slug can be string | string[] | undefined
-  const rawSlug = params?.slug;
-  const slug =
-    Array.isArray(rawSlug) ? rawSlug[0] : (rawSlug as string | undefined);
-
-  // Agar slug na mile to simple fallback
-  if (!slug) {
-    return (
-      <div className="min-h-screen bg-[#0B0B10] text-white flex items-center justify-center">
-        <p>Invalid blog URL.</p>
-      </div>
-    );
-  }
+  const slug = params.slug as string;
 
   // TODO: change to your live domain
   const baseUrl = "https://yourdomain.com";
@@ -53,8 +41,7 @@ export default function BlogDetailPage() {
   // ---------- Load post + latest ----------
   useEffect(() => {
     async function load() {
-      // Single post
-      const data: Post | null = await sanityClient.fetch(
+      const data = await sanityClient.fetch(
         `*[_type == "post" && slug.current == $slug][0]{
           title,
           "image": mainImage.asset->url,
@@ -70,10 +57,10 @@ export default function BlogDetailPage() {
 
       setPost(data);
 
-      // Latest 3 other posts
-      const more: LatestPost[] = await sanityClient.fetch(
+      const more = await sanityClient.fetch(
         `*[_type == "post" && slug.current != $slug]
           | order(coalesce(publishedAt, _createdAt) desc)[0...3]{
+            _id,
             title,
             "image": mainImage.asset->url,
             slug
@@ -87,37 +74,35 @@ export default function BlogDetailPage() {
     load();
   }, [slug]);
 
-  // ---------- Build TOC from headings ----------
+  // ---------- Build TOC ----------
   useEffect(() => {
-    if (!post) return;
+  if (!post) return;
 
-    const timeout = setTimeout(() => {
-      const headings = Array.from(
-        document.querySelectorAll<HTMLElement>("article h2, article h3")
-      );
+  setTimeout(() => {
+    const headings = Array.from(
+      document.querySelectorAll<HTMLElement>("article h2")
+    );
 
-      const tocItems = headings.map((el) => {
-        const text = el.innerText;
-        const id =
-          el.id ||
-          text
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
+    const tocItems = headings.map((el) => {
+      const text = el.innerText;
+      const id =
+        el.id ||
+        text
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/(^-|-$)/g, "");
 
-        el.id = id;
-        return { text, id };
-      });
+      el.id = id;
+      return { text, id };
+    });
 
-      setToc(tocItems);
-    }, 100);
-
-    return () => clearTimeout(timeout);
-  }, [post]);
+    setToc(tocItems);
+  }, 100);
+}, [post]);
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-[#0B0B10] text-white flex items-center justify-center">
+      <div className="min-h-screen bg-[#0B0B10] text-white p-10">
         Loading...
       </div>
     );
@@ -177,9 +162,7 @@ export default function BlogDetailPage() {
                 />
               )}
               <div>
-                <p className="font-medium">
-                  {post.author || "Unknown Author"}
-                </p>
+                <p className="font-medium">{post.author || "Unknown Author"}</p>
                 <p>{formatDate(post.publishedAt)}</p>
               </div>
             </div>
@@ -239,25 +222,30 @@ export default function BlogDetailPage() {
                 Latest from the blog
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                {latestPosts.map((b) => (
-                  <Link
-                    key={b.slug.current}
-                    href={`/blogs/${b.slug.current}`}
-                    className="group rounded-2xl bg-[#101018] border border-white/5 p-3 hover:border-white/15 hover:-translate-y-1 transition"
-                  >
-                    <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
-                      <Image
-                        src={b.image || "/images/blog-img-1.png"}
-                        alt={b.title}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                      />
-                    </div>
-                    <p className="mt-3 text-sm font-semibold leading-snug line-clamp-2 group-hover:text-indigo-300">
-                      {b.title}
-                    </p>
-                  </Link>
-                ))}
+                {latestPosts.map((b) => {
+                  const latestSlug = b.slug?.current; // 👈 safe access
+                  if (!latestSlug) return null; // slug missing → skip card
+
+                  return (
+                    <Link
+                      key={b._id}
+                      href={`/blogs/${latestSlug}`}
+                      className="group rounded-2xl bg-[#101018] border border-white/5 p-3 hover:border-white/15 hover:-translate-y-1 transition"
+                    >
+                      <div className="relative aspect-[16/10] overflow-hidden rounded-xl">
+                        <Image
+                          src={b.image || "/images/blog-img-1.png"}
+                          alt={b.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                        />
+                      </div>
+                      <p className="mt-3 text-sm font-semibold leading-snug line-clamp-2 group-hover:text-indigo-300">
+                        {b.title}
+                      </p>
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           )}

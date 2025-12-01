@@ -293,31 +293,35 @@ export default function MarketingStrategyPage() {
 
       {/* ---------- BLOG ---------- */}
       <section className="blog w-full bg-white text-zinc-900 py-20">
-        <div className="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-[1fr_420px] items-center">
-          <div className="blog-text">
-            <p className="uppercase text-xs tracking-wide text-zinc-500 mb-2">
-              Up next
-            </p>
-            <h4 className="text-2xl sm:text-3xl font-semibold mb-4">
-              India’s EV Push Is Gathering Speed, but the Grid May Not Be Ready
-            </h4>
-            <Link
-              href="#"
-              className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
-            >
-              Check it out <span aria-hidden>→</span>
-            </Link>
-          </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100 blog-img">
-            <Image
-              src="/images/services/india-ev-push.png"
-              alt="EV blog preview"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
+  <div className="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-[1fr_420px] items-center">
+    <div className="blog-text">
+      <p className="uppercase text-xs tracking-wide text-zinc-500 mb-2">
+        Up next
+      </p>
+      <h4 className="text-2xl sm:text-3xl font-semibold mb-4">
+        India’s EV Push Is Gathering Speed, but the Grid May Not Be Ready
+      </h4>
+
+      {/* 👇 change # to your blog URL */}
+      <Link
+        href="/blogs/india-s-ev-push-is-gathering-speed-but-the-grid-may-not-be-ready"
+        className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
+      >
+        Check it out <span aria-hidden>→</span>
+      </Link>
+    </div>
+
+    <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100 blog-img">
+      <Image
+        src="/images/services/india-ev-push.png"
+        alt="EV blog preview"
+        fill
+        className="object-cover"
+      />
+    </div>
+  </div>
+</section>
+
     </main>
   );
 }

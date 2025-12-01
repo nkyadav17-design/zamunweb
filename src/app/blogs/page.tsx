@@ -9,7 +9,7 @@ import { blogListQuery } from "@/sanity/lib/queries";
 type Blog = {
   _id: string;
   title: string;
-  slug: { current: string };
+  slug?: { current?: string }; // 👈 optional slug
   image?: string;
   category?: string;
   excerpt?: string;
@@ -77,39 +77,43 @@ export default function BlogsPage() {
       {/* Blog Grid */}
       <section className="mx-auto w-full max-w-7xl px-6 pb-16 md:pb-24">
         <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredBlogs.map((b) => (
-            <Link
-              key={b._id}
-              href={`/blogs/${b.slug.current}`}
-              className="group rounded-2xl bg-[#0E0E15] p-2 transition hover:bg-white/5"
-            >
-              {/* Image block */}
-              <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
-                <Image
-                  src={b.image || "/images/blog-img-1.png"} // fallback image in /public/images
-                  alt={b.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
+          {filteredBlogs.map((b) => {
+            const slug = b.slug?.current; // 👈 safe access
 
-              {/* Meta */}
-              <div className="px-2 pb-3 pt-3">
-                <p className="text-[11px] uppercase tracking-widest text-indigo-300/90">
-                  {b.category || "Uncategorized"}
-                </p>
+            return (
+              <Link
+                key={b._id}
+                href={slug ? `/blogs/${slug}` : "#"} // 👈 null slug pe crash nahi hoga
+                className="group rounded-2xl bg-[#0E0E15] p-2 transition hover:bg-white/5"
+              >
+                {/* Image block */}
+                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
+                  <Image
+                    src={b.image || "/images/blog-img-1.png"} // fallback image in /public/images
+                    alt={b.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
 
-                <h3 className="mt-1 line-clamp-2 text-[17px] font-semibold leading-snug group-hover:text-indigo-400 transition">
-                  {b.title}
-                </h3>
+                {/* Meta */}
+                <div className="px-2 pb-3 pt-3">
+                  <p className="text-[11px] uppercase tracking-widest text-indigo-300/90">
+                    {b.category || "Uncategorized"}
+                  </p>
 
-                <p className="mt-2 line-clamp-3 text-sm text-white/70">
-                  {b.excerpt || "Click to read full post"}
-                </p>
-              </div>
-            </Link>
-          ))}
+                  <h3 className="mt-1 line-clamp-2 text-[17px] font-semibold leading-snug group-hover:text-indigo-400 transition">
+                    {b.title}
+                  </h3>
+
+                  <p className="mt-2 line-clamp-3 text-sm text-white/70">
+                    {b.excerpt || "Click to read full post"}
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
     </main>
