@@ -3,10 +3,11 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { PortableText } from "@portabletext/react";
+import { PortableText, PortableTextComponents } from "@portabletext/react";
 import { useEffect, useState } from "react";
 import { FaLinkedin, FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { sanityClient } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image"; // 👈 NEW: helper to build image URLs
 
 type Post = {
   title: string;
@@ -24,6 +25,71 @@ type LatestPost = {
   title: string;
   image?: string;
   slug?: { current?: string }; // 👈 slug optional
+};
+
+/* ---------------- PORTABLE TEXT COMPONENTS (for body) ---------------- */
+
+const portableComponents: PortableTextComponents = {
+  types: {
+    // 👇 render Sanity image blocks inside the blog content
+    image: ({ value }) => {
+  if (!value) return null;
+  const imgUrl = urlFor(value).url();
+
+  return (
+    <figure className="my-10">
+      <div className="w-full overflow-hidden rounded-2xl border border-white/10">
+        <Image
+          src={imgUrl}
+          alt={value.alt || "Blog image"}
+          width={1200} // ⬅ enables auto height response
+          height={800} // ⬅ responsive natural ratio
+          className="w-full h-auto rounded-2xl object-contain" // ⬅ height auto, no crop
+        />
+      </div>
+
+      {value.caption && (
+        <figcaption className="mt-3 text-sm text-zinc-400 text-center">
+          {value.caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+},
+
+  },
+  block: {
+    normal: ({ children }) => (
+      <p className="mb-4 leading-relaxed text-zinc-200">{children}</p>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mt-10 mb-4 text-2xl sm:text-3xl font-semibold text-white">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mt-8 mb-3 text-xl font-semibold text-white">
+        {children}
+      </h3>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-6 border-l-4 border-indigo-400/70 pl-4 italic text-zinc-200">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="mb-4 ml-6 list-disc space-y-1 text-zinc-200">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="mb-4 ml-6 list-decimal space-y-1 text-zinc-200">
+        {children}
+      </ol>
+    ),
+  },
 };
 
 export default function BlogDetailPage() {
@@ -76,29 +142,29 @@ export default function BlogDetailPage() {
 
   // ---------- Build TOC ----------
   useEffect(() => {
-  if (!post) return;
+    if (!post) return;
 
-  setTimeout(() => {
-    const headings = Array.from(
-      document.querySelectorAll<HTMLElement>("article h2")
-    );
+    setTimeout(() => {
+      const headings = Array.from(
+        document.querySelectorAll<HTMLElement>("article h2")
+      );
 
-    const tocItems = headings.map((el) => {
-      const text = el.innerText;
-      const id =
-        el.id ||
-        text
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/(^-|-$)/g, "");
+      const tocItems = headings.map((el) => {
+        const text = el.innerText;
+        const id =
+          el.id ||
+          text
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "");
 
-      el.id = id;
-      return { text, id };
-    });
+        el.id = id;
+        return { text, id };
+      });
 
-    setToc(tocItems);
-  }, 100);
-}, [post]);
+      setToc(tocItems);
+    }, 100);
+  }, [post]);
 
   if (!post) {
     return (
@@ -212,7 +278,7 @@ export default function BlogDetailPage() {
 
           {/* Body */}
           <article className="prose prose-invert prose-lg leading-relaxed blog-content mt-10 max-w-none">
-            <PortableText value={post.body} />
+            <PortableText value={post.body} components={portableComponents} />
           </article>
 
           {/* Latest 3 posts */}

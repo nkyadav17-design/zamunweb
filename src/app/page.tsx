@@ -15,12 +15,12 @@ const poppins = Poppins({
 const slides = [
   {
     video: "/images/home-page-video.mp4",
-    heading: "The Future <br /> looks like you.",
+    heading: "Engineer Your Influence",
     buttonText: "Our Services",
     buttonLink: "services",
   },
   {
-    video: "/images/home-page-video1.mp4",
+    video: "/images/computer-chip.mp4",
     heading: "Innovate <br /> with Confidence.",
     buttonText: "Case Studies",
     buttonLink: "case-studies",
