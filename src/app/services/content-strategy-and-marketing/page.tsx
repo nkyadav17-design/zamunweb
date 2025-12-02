@@ -296,21 +296,22 @@ export default function MarketingStrategyPage() {
               Up next
             </p>
             <h4 className="text-2xl sm:text-3xl font-semibold mb-4">
-              India’s EV Push Is Gathering Speed, but the Grid May Not Be Ready
+              The Agentic AI Revolution: Rewiring the Future of Work and Business
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/blogs/the-agentic-ai-revolution-rewiring-the-future-of-work-and-business"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Check it out <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100 blog-img">
+          <div className="w-full overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100">
             <Image
-              src="/images/services/india-ev-push.png"
+              src="/images/services/the-agentic-ai-revolution-rewiring-the-future-of-work-and-business.webp"
               alt="EV blog preview"
-              fill
-              className="object-cover"
+              width={1200}
+              height={0}
+              className="w-full h-auto rounded-2xl object-contain"
             />
           </div>
         </div>

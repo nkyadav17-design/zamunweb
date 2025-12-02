@@ -299,23 +299,24 @@ export default function MarketingStrategyPage() {
               Up next
             </p>
             <h4 className="text-2xl sm:text-3xl font-semibold mb-4">
-              India’s EV Push Is Gathering Speed, but the Grid May Not Be Ready
+              The Strategic Role of Global Capability Centres (GCCs) in India’s Growth Story
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/blogs/the-strategic-role-of-global-capability-centres-gccs-in-india-s-growth-story"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Check it out <span aria-hidden>→</span>
             </Link>
           </div>
-          <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100 blog-img">
-            <Image
-              src="/images/services/india-ev-push.png"
-              alt="EV blog preview"
-              fill
-              className="object-cover"
-            />
-          </div>
+          <div className="w-full overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100">
+  <Image
+    src="/images/services/the-strategic-role-of-global-capability-centres-gccs-in-india-s-growth-story.webp"
+    alt="EV blog preview"
+    width={1200}
+    height={0}
+    className="w-full h-auto rounded-2xl object-contain"
+  />
+</div>
         </div>
       </section>
     </main>

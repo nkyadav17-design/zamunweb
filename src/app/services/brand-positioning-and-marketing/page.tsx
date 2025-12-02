@@ -236,10 +236,10 @@ export default function MarketingStrategyPage() {
               Up next
             </p>
             <h4 className="text-2xl sm:text-3xl font-semibold mb-4">
-              India’s EV Push Is Gathering Speed, but the Grid May Not Be Ready
+              Organizational Strategies Top Marketing Companies Use to Crush the Competition in 2025
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/blogs/organizational-strategies-top-marketing-companies-use-to-crush-the-competition-in-2025"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Check it out <span aria-hidden>→</span>
@@ -247,7 +247,7 @@ export default function MarketingStrategyPage() {
           </div>
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-zinc-200 bg-zinc-100 blog-img">
             <Image
-              src="/images/services/india-ev-push.png"
+              src="/images/services/Organizational-Strategies-Top-Marketing.webp"
               alt="EV blog preview"
               fill
               className="object-cover"
