@@ -35,15 +35,49 @@ export default function Footer() {
 
         {/* Social Icons */}
         <div className="flex items-center gap-5 text-white/80">
-          <a href="#" aria-label="Twitter" className="hover:text-white transition">
-            <i className="ri-twitter-fill text-lg" />
+          <a href="https://www.linkedin.com/company/zamun-marketing" target="_blank" rel="noopener noreferrer" aria-label="Linkedin" className="hover:text-white transition">
+            <i className="ri-linkedin-fill text-lg" />
           </a>
-          <a href="#" aria-label="Facebook" className="hover:text-white transition">
-            <i className="ri-facebook-fill text-lg" />
-          </a>
-          <a href="#" aria-label="Instagram" className="hover:text-white transition">
-            <i className="ri-instagram-line text-lg" />
-          </a>
+           <a
+  href="https://x.com/zamunservices"
+  aria-label="Twitter"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-white transition"
+>
+  <i className="ri-twitter-fill text-lg" />
+</a>
+
+<a
+  href="https://www.facebook.com/zamunservices"
+  aria-label="Facebook"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-white transition"
+>
+  <i className="ri-facebook-fill text-lg" />
+</a>
+
+<a
+  href="https://www.instagram.com/zamunservices/"
+  aria-label="Instagram"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-white transition"
+>
+  <i className="ri-instagram-line text-lg" />
+</a>
+
+<a
+  href="https://www.youtube.com/@ZamunStudios"
+  aria-label="YouTube"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="hover:text-white transition"
+>
+  <i className="ri-youtube-fill text-lg" />
+</a>
+
         </div>
       </div>
     </footer>

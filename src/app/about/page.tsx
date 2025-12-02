@@ -239,7 +239,7 @@ export default function AboutPage() {
             },
             {
               name: "Dinesh kumar",
-              role: "Visual Designer",
+              role: "Sr. Visual Designer",
               linkedin:
                 "https://www.linkedin.com/in/dinesh-kumar-b26065183/",
               x: "#",
@@ -266,15 +266,15 @@ export default function AboutPage() {
               name: "Hemant Chaturvedi",
               role: "Search Engine Optimization Analyst",
               linkedin:
-                "https://www.linkedin.com/in/akanksha-gupta-b8489b157/",
+                "https://www.linkedin.com/in/hemantseoanalyst/",
               x: "#",
               image: "/images/team/Hemant-Seo-Zamun.png",
             },
             {
-              name: "Hemant Chaturvedi",
-              role: "Search Engine Optimization Analyst",
+              name: "Kshitij Rawat",
+              role: "Video Editor and Graphic Designer",
               linkedin:
-                "https://www.linkedin.com/in/akanksha-gupta-b8489b157/",
+                "https://www.linkedin.com/in/kshitij-rawat-8964a0267/",
               x: "#",
               image: "/images/team/Kshitij-Rawat-Zamun.png",
             },

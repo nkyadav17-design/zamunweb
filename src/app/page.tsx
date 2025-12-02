@@ -32,7 +32,7 @@ const slides = [
     buttonLink: "#reports",
   },
   {
-    video: "/images/home-page-video1.mp4",
+    video: "/images/computer-chip.mp4",
     heading: "Design. Build. <br /> Scale.",
     buttonText: "Our Portfolio",
     buttonLink: "#portfolio",
@@ -141,7 +141,7 @@ export default function Home() {
               className="max-w-3xl"
             >
               <h1
-                className="text-5xl sm:text-7xl font-normal text-white leading-tight drop-shadow-lg"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-normal text-white leading-tight drop-shadow-lg"
                 dangerouslySetInnerHTML={{ __html: slides[activeSlide].heading }}
               />
               <Link
@@ -181,7 +181,7 @@ export default function Home() {
                 Creative, Research, Future Driven
               </h2>
             </div>
-            <div className="hidden sm:flex justify-end w-full sm:w-auto">
+            <div className="sm:flex justify-end w-full sm:w-auto">
               <Link
                 href="/about"
                 className="inline-flex items-center justify-center rounded-xl bg-black text-white hover:bg-black/90 border border-black/10 px-8 py-4 text-sm sm:text-base font-medium transition focus:outline-none focus:ring-2 focus:ring-black/20"
@@ -284,7 +284,7 @@ export default function Home() {
                       RESEARCH REPORT
                     </p>
                     <h3 className="text-lg sm:text-xl font-medium leading-snug mb-5">
-                      Lorem ipsum is simply dummy text
+                      Unlocking growth through data-driven marketing
                     </h3>
                     <div className="mt-auto w-full h-48 rounded-lg overflow-hidden bg-black">
                       <img
