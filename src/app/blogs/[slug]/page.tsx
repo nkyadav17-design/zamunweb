@@ -1,23 +1,20 @@
-// app/blogs/[slug]/page.tsx
+// src/app/blogs/[slug]/page.tsx
 import type { Metadata } from "next";
 import { sanityClient } from "@/sanity/lib/client";
 import BlogDetailPageClient from "./BlogDetailPageClient";
-
-type PageProps = {
-  params: { slug: string };
-};
+import { urlFor } from "@/sanity/lib/image";
 
 // --------- DYNAMIC METADATA FOR EACH BLOG ----------
-export async function generateMetadata(
-  { params }: PageProps
-): Promise<Metadata> {
-  const { slug } = params;
+export async function generateMetadata(props: any): Promise<Metadata> {
+  // In Next 15, props.params can be wrapped, so we keep it flexible
+  const params = await props.params;
+  const slug = (params as { slug: string }).slug;
 
   const post = await sanityClient.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
       excerpt,
-      "image": mainImage.asset->url
+      mainImage
     }`,
     { slug }
   );
@@ -29,10 +26,12 @@ export async function generateMetadata(
     };
   }
 
+  const ogImage = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined;
   const url = `https://www.zamun.com/blogs/${slug}`;
+  const title = `${post.title} | Zamun`;
 
   return {
-    title: `${post.title} | Zamun`,
+    title,
     description:
       post.excerpt ||
       "Read this marketing and growth insight from Zamun.",
@@ -40,27 +39,30 @@ export async function generateMetadata(
       canonical: `/blogs/${slug}`,
     },
     openGraph: {
-      title: post.title,
+      title,
       description:
         post.excerpt ||
         "Read this marketing and growth insight from Zamun.",
       type: "article",
       url,
       siteName: "Zamun",
-      images: post.image ? [{ url: post.image }] : undefined,
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
-      title: post.title,
+      title,
       description:
         post.excerpt ||
         "Read this marketing and growth insight from Zamun.",
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
 
 // --------- PAGE RENDER ----------
-export default function BlogDetailPage({ params }: PageProps) {
-  const { slug } = params;
+export default async function BlogDetailPage(props: any) {
+  const params = await props.params;
+  const slug = (params as { slug: string }).slug;
+
   return <BlogDetailPageClient slug={slug} />;
 }
