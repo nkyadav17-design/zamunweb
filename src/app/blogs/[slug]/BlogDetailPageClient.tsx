@@ -1,3 +1,4 @@
+// app/blogs/[slug]/BlogDetailPageClient.tsx
 "use client";
 
 import Image from "next/image";
@@ -26,11 +27,8 @@ type LatestPost = {
   slug?: { current?: string };
 };
 
-/* ---------------- PORTABLE TEXT COMPONENTS (for body) ---------------- */
-
 const portableComponents: PortableTextComponents = {
   types: {
-    // 👇 render Sanity image blocks inside the blog content
     image: ({ value }) => {
       if (!value) return null;
       const imgUrl = urlFor(value).url();
@@ -41,9 +39,9 @@ const portableComponents: PortableTextComponents = {
             <Image
               src={imgUrl}
               alt={value.alt || "Blog image"}
-              width={1200} // ⬅ enables auto height response
-              height={800} // ⬅ responsive natural ratio
-              className="w-full h-auto rounded-2xl object-contain" // ⬅ height auto, no crop
+              width={1200}
+              height={800}
+              className="w-full h-auto rounded-2xl object-contain"
             />
           </div>
 
@@ -90,8 +88,11 @@ const portableComponents: PortableTextComponents = {
   },
 };
 
-export default function BlogDetailPageClient({ slug }: { slug: string }) {
-  // 🔁 Update this to your live domain when ready
+type BlogDetailPageClientProps = {
+  slug: string;
+};
+
+export default function BlogDetailPageClient({ slug }: BlogDetailPageClientProps) {
   const baseUrl = "https://www.zamun.com";
   const shareUrl = `${baseUrl}/blogs/${slug}`;
 
