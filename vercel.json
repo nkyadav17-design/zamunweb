@@ -1,7 +1,7 @@
 {
   "redirects": [
     {
-      "source": "http://www.zamun.com/:path*",
+      "source": "/:path*",
       "destination": "https://zamun.com/:path*",
       "permanent": true
     }
