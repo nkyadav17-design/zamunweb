@@ -1,9 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/(.*)",
-      "destination": "https://zamun.com",
-      "statusCode": 301 
+      "source": "http://www.zamun.com/:path*",
+      "destination": "https://zamun.com/:path*",
+      "permanent": true
     }
   ]
 }
