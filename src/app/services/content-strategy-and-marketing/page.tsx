@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Link from "next/link";
+import ContactSection from "@/components/ContactSection";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -249,44 +250,13 @@ export default function MarketingStrategyPage() {
       </section>
 
       {/* ---------- CONTACT ---------- */}
-      <section className="contact w-full bg-gradient-to-r from-violet-600/10 via-purple-600/10 to-cyan-500/10 py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center contact-form">
-          <h3 className="text-2xl font-normal text-white mb-6">
-            Let’s{" "}
-            <span className="bg-gradient-to-r from-violet-400 to-cyan-400 bg-clip-text text-transparent">
-              get in touch
-            </span>
-          </h3>
-          <form className="grid gap-4">
-            <input
-              type="text"
-              placeholder="Tell us what's on your mind…"
-              className="w-full rounded-xl bg-white/[0.07] border border-white/10 px-4 py-3 text-white placeholder-zinc-400 focus:ring-2 focus:ring-violet-400/70"
-            />
-            <div className="grid sm:grid-cols-3 gap-4">
-              <input
-                placeholder="Your name"
-                className="rounded-xl bg-white/[0.07] border border-white/10 px-4 py-3 text-white placeholder-zinc-400 focus:ring-2 focus:ring-violet-400/70"
-              />
-              <input
-                placeholder="Your email"
-                type="email"
-                className="rounded-xl bg-white/[0.07] border border-white/10 px-4 py-3 text-white placeholder-zinc-400 focus:ring-2 focus:ring-violet-400/70"
-              />
-              <input
-                placeholder="Website (optional)"
-                className="rounded-xl bg-white/[0.07] border border-white/10 px-4 py-3 text-white placeholder-zinc-400 focus:ring-2 focus:ring-violet-400/70"
-              />
-            </div>
-            <button
-              type="submit"
-              className="mt-2 bg-gradient-to-r from-violet-500 via-purple-500 to-cyan-400 text-white rounded-xl py-3 font-normal shadow-[0_10px_30px_rgba(99,102,241,0.4)] hover:shadow-[0_15px_40px_rgba(99,102,241,0.6)]"
-            >
-              Send Message
-            </button>
-          </form>
-        </div>
-      </section>
+
+
+
+    <>
+      {/* other sections */}
+      <ContactSection />
+    </>
 
       {/* ---------- BLOG ---------- */}
       <section className="blog w-full bg-white text-zinc-900 py-20">

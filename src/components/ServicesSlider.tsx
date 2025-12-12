@@ -75,7 +75,7 @@ export default function ServicesSlider({
     <section className="min-h-[70vh] w-full bg-gradient-to-b from-[#08050F] via-[#0E0A1F] to-[#0B0A1B] text-white py-24 px-6 sm:px-12 md:px-20 overflow-hidden">
       {/* Header + CTA */}
       <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center mb-12">
-        <motion.h2
+        <motion.h1
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -83,7 +83,7 @@ export default function ServicesSlider({
           className="text-4xl sm:text-5xl font-light tracking-wide mt-10 mb-6 md:mt-22 md:mb-12 sm:mt-8"
         >
           {heading}
-        </motion.h2>
+        </motion.h1>
 
         {cta ? (
           <Link
@@ -123,9 +123,9 @@ export default function ServicesSlider({
                   <p className="text-[11px] tracking-[0.18em] text-white/60 mb-3 uppercase">
                     {card.category}
                   </p>
-                  <h3 className="text-lg sm:text-xl font-medium leading-snug mb-5">
+                  <h2 className="text-lg sm:text-xl font-medium leading-snug mb-5">
                     {card.title}
-                  </h3>
+                  </h2>
                   <div className="mt-auto relative w-full h-48 rounded-lg overflow-hidden bg-black">
                     <Image
                       src={card.image}

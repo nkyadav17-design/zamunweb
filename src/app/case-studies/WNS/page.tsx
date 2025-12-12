@@ -224,7 +224,7 @@ export default function IMC2024CaseStudy() {
               Reimagining the IMC brand for a global audience
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/case-studies/imc-24"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Read Case Study <span aria-hidden>→</span>

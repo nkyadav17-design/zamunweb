@@ -1,3 +1,13 @@
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Explore Zamun’s marketing, branding, content, and growth services for tech companies.",
+};
+
+
 import ServicesSlider from "@/components/ServicesSlider";
 
 const items = [

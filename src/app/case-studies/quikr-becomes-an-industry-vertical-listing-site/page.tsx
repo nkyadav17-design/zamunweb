@@ -14,7 +14,7 @@ export default function IMC2024CaseStudy() {
   const colourWave =
     "/images/case-studies/quikr/quicker-strategic-advertising-efforts.png";
   const tunnel = "/images/case-studies/quikr/qkr-acqns.png";
-  const relatedThumb = "/images/case-studies/imc-24/imc-24-blog.jpg";
+  const relatedThumb = "/images/case-studies/favista/favista-office.png";
   const testiIcons = "/images/case-studies/imc-24/testimonials-icons.png";
 
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -348,10 +348,10 @@ export default function IMC2024CaseStudy() {
           <div className="blog-text">
             <p className="uppercase text-xs tracking-wide text-zinc-500 mb-2">Up next</p>
             <h4 className="text-2xl sm:text-3xl font-normal mb-4">
-              Reimagining the IMC brand for a global audience
+              Favista establishes presence as an online lead generator
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/case-studies/favista-establishes-presence-as-an-online-lead-generator"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Read Case Study <span aria-hidden>→</span>

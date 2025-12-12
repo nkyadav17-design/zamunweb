@@ -70,9 +70,8 @@ export const metadata: Metadata = {
     creator: "@zamunservices",
   },
   icons: {
-    icon: "/favicon-32x32.png",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
   },
 };
 

@@ -33,7 +33,7 @@ export default function IMC2024CaseStudy() {
   ];
 
   const tunnel = "/images/case-studies/stl/stl-factory.jpg";
-  const relatedThumb = "/images/case-studies/imc-24/imc-24-blog.jpg";
+  const relatedThumb = "/images/case-studies/quikr/Quikrites-at-the-Inaguratio.jpg";
   const testiIcons = "/images/case-studies/imc-24/testimonials-icons.png";
 
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -635,10 +635,10 @@ export default function IMC2024CaseStudy() {
               Up next
             </p>
             <h4 className="text-2xl sm:text-3xl font-normal mb-4">
-              Reimagining the IMC brand for a global audience
+              Quikr becomes an industry vertical listing site
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/case-studies/quikr-becomes-an-industry-vertical-listing-site"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Read Case Study <span aria-hidden>→</span>

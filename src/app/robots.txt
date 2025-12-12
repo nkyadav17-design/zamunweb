@@ -1,4 +1,24 @@
-User-Agent: *
+User-agent: Googlebot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: GeminiBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Allow all bots
+User-agent: *
 Allow: /
 Disallow: /private/
+
 Sitemap: https://zamun.com/sitemap.xml

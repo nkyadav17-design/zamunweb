@@ -36,7 +36,7 @@ export default function IMC2024CaseStudy() {
   ];
   const tunnel = "/images/case-studies/imc-24/imc-24-entry-gate.jpg";
   const lab = "/images/case-studies/imc-24/imc-24-visual-large.jpg";
-  const relatedThumb = "/images/case-studies/imc-24/imc-24-blog.jpg";
+  const relatedThumb = "/images/case-studies/stl/stl-case-study-cover-page.png";
   const testiIcons = "/images/case-studies/imc-24/testimonials-icons.png";
 
   // ---------- GSAP (no ScrollTrigger) ----------
@@ -490,10 +490,10 @@ export default function IMC2024CaseStudy() {
           <div className="blog-text">
             <p className="uppercase text-xs tracking-wide text-zinc-500 mb-2">Up next</p>
             <h4 className="text-2xl sm:text-3xl font-normal mb-4">
-              Reimagining the IMC brand for a global audience
+              STL enters Access Solutions market
             </h4>
             <Link
-              href="#"
+              href="https://www.zamun.com/case-studies/stl-enters-access-solutions-market"
               className="inline-flex items-center gap-2 text-sm font-medium text-violet-600 hover:text-violet-800"
             >
               Read Case Study <span aria-hidden>→</span>

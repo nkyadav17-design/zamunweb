@@ -47,7 +47,7 @@ export default function CaseStudyPage() {
         {/* Block 2 */}
         <ProjectBlock
           captionTitle="STL Tech"
-          captionItems={["Enters the Access Solutions market", "Logo"]}
+          captionItems={["Enters the Access Solutions market"]}
           bodyText="STL enters Access Solutions market"
           imageSrc="/images/case-studies/stl/stl-case-study-cover-page.png"
           link="/case-studies/stl-enters-access-solutions-market"
@@ -58,7 +58,7 @@ export default function CaseStudyPage() {
         {/* Block 3 */}
         <ProjectBlock
           captionTitle="Quikr"
-          captionItems={["An industry-specific listing site", "Logo"]}
+          captionItems={["An industry-specific listing site"]}
           bodyText="Quikr becomes an industry vertical listing site."
           imageSrc="/images/case-studies/quikr/Quikrites-at-the-Inaguratio.jpg"
           link="/case-studies/quikr-becomes-an-industry-vertical-listing-site"
@@ -69,7 +69,7 @@ export default function CaseStudyPage() {
         {/* Block 4 */}
         <ProjectBlock
           captionTitle="Favista Real Estate Pvt. Ltd"
-          captionItems={["Favista emerges as a strong online lead generator.", "Logo"]}
+          captionItems={["Favista emerges as a strong online lead generator."]}
           bodyText="Favista establishes presence as an online lead generator"
           imageSrc="/images/case-studies/favista/favista-office.png"
           link="/case-studies/favista-establishes-presence-as-an-online-lead-generator"
@@ -80,7 +80,7 @@ export default function CaseStudyPage() {
         {/* Block 5 */}
         <ProjectBlock
           captionTitle="WNS"
-          captionItems={["WNS becomes an Industrial & Infrastructure specialist", "Logo"]}
+          captionItems={["WNS becomes an Industrial & Infrastructure specialist"]}
           bodyText="WNS establishes itself as an Industrial and Infrastructure industry specialist"
           imageSrc="/images/case-studies/wns/WNS.jpeg"
           link="/case-studies/WNS"
