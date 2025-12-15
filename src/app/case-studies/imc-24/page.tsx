@@ -459,7 +459,7 @@ export default function IMC2024CaseStudy() {
       </section>
 
       {/* ===== Testimonial ===== */}
-     <section className="mx-auto mt-14 max-w-[1200px] px-6 js-reveal">
+     <section className="hidden mx-auto mt-14 max-w-[1200px] px-6 js-reveal">
   <div className="flex flex-col-reverse items-center gap-8 md:flex-row md:items-start">
     {/* Text Block */}
     <div className="w-full md:basis-[222px] md:grow">

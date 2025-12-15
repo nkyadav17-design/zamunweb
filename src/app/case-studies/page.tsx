@@ -88,8 +88,9 @@ export default function CaseStudyPage() {
 
         <div className="my-10 h-px bg-white/10" />
 
-        {/* Testimonial */}
-        <Testimonial />
+        {/* Testimonial - Shirf ye remove kar do chal jayega - false && -  */}
+        
+        {false && <Testimonial />}
 
       </div>
     </main>
@@ -154,7 +155,7 @@ function Testimonial() {
     <section className="mt-16">
       <div className="flex flex-col-reverse items-center gap-8 md:flex-row md:items-start">
 
-        {/* Text Block */}
+       
         <div className="w-full md:basis-[222px] md:grow">
           <p className="text-lg leading-relaxed text-gray-200 font-light md:text-[28px] md:leading-[2.4rem]">
             It’s rare to find an agency that brings such an interesting, innovative idea
@@ -166,7 +167,7 @@ function Testimonial() {
           </p>
         </div>
 
-        {/* Image Block */}
+       
         <div className="w-full max-w-[260px] md:max-w-none md:w-64 shrink-0">
           <Image
             src="/images/case-studies/imc-24/testimonials-icons.png"

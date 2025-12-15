@@ -2,9 +2,24 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "Marketing, Brand, Design & Content Services",
   description:
-    "Explore Zamun’s marketing, branding, content, and growth services for tech companies.",
+    "Explore Zamun’s marketing strategy, brand positioning, design strategy, content marketing, campaign management, and specialized marketing services for tech-driven businesses.",
+  alternates: {
+    canonical: "https://www.zamun.com/services",
+  },
+  keywords: [
+    "marketing services",
+    "marketing strategy development",
+    "brand positioning",
+    "brand marketing services",
+    "design strategy services",
+    "content strategy and marketing",
+    "channel and campaign management",
+    "specialized marketing services",
+    "B2B marketing services",
+    "tech marketing agency",
+  ],
 };
 
 

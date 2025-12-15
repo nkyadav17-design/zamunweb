@@ -278,6 +278,14 @@ export default function AboutPage() {
               x: "#",
               image: "/images/team/Kshitij-Rawat-Zamun.png",
             },
+            {
+              name: "Sakshi Singh",
+              role: "Sr. HR Executive",
+              linkedin:
+                "https://www.linkedin.com/in/sakshi-singh-59231a27b/",
+              x: "#",
+              image: "/images/team/Sakshi-Singh.png",
+            },
           ].map((m) => (
             <div
               key={m.name}
@@ -289,7 +297,7 @@ export default function AboutPage() {
                 <img
                   src={m.image}
                   alt={m.name}
-                  className="absolute left-5 bottom-0 h-40 w-40 object-cover rounded-xl grayscale"
+                  className="absolute left-5 bottom-0 h-45 w-45 object-cover grayscale"
                 />
               </div>
 
