@@ -1,41 +1,82 @@
-"use client";
+import type { Metadata } from "next";
+import ReportSlider from "@/components/ReportSlider";
 
-import dynamic from "next/dynamic";
+export const metadata: Metadata = {
+  title: "Research Reports & Industry Insights | Zamun",
+  description:
+    "Explore Zamun’s in-depth research reports and industry insights covering marketing, technology, cybersecurity, data strategy, and business growth to drive stronger performance.",
+  alternates: {
+    canonical: "https://www.zamun.com/reports",
+  },
+  keywords: [
+    "research reports",
+    "industry insights",
+    "business research reports",
+    "marketing research reports",
+    "technology insights",
+    "cybersecurity reports",
+    "data driven insights",
+    "business strategy reports",
+    "thought leadership content",
+    "B2B research insights",
+    "enterprise research reports",
+    "Zamun research",
+  ],
+};
 
-// Flipbook needs window → disable SSR
-const ImageFlipBook = dynamic(
-  () => import("../../components/PdfFlipBook"),
+const items = [
   {
-    ssr: false,
-    loading: () => (
-      <div className="text-sm text-neutral-400 text-center py-10">
-        Loading viewer…
-      </div>
-    ),
-  }
-);
+    id: "mk-1",
+    category: "Report",
+    title: "Cybersecurity",
+    href: "/reports/cybersecurity",
+    image: "/images/reports/cybersecurity.jpg",
+  },
+  {
+    id: "br-1",
+    category: "Report",
+    title: "Digital Public Infrastructure",
+    href: "/reports/digital-public-infrastructure",
+    image: "/images/reports/digital-public-infrastructure.jpg",
+  },
+  {
+    id: "de-1",
+    category: "Report",
+    title: "Electronics Manufacturing",
+    href: "/reports/electronics-manufacturing",
+    image: "/images/reports/electronics-manufacturing.jpg",
+  },
+  {
+    id: "mk-2",
+    category: "Report",
+    title: "Robotics",
+    href: "/reports/robotics",
+    image: "/images/reports/robotic.jpg",
+  },
+  {
+    id: "mk-3",
+    category: "Report",
+    title: "Smart Mobility",
+    href: "/reports/smart-mobility",
+    image: "/images/reports/smart-mobility.jpg",
+  },
+  {
+    id: "mk-4",
+    category: "Report",
+    title: "Wired to Win",
+    href: "/reports/wired-to-win",
+    image: "/images/reports/wired-to-win.jpg",
+  },
+];
 
-export default function WhitepaperPage() {
+export default function OurReportsPage() {
   return (
-    <main className="min-h-screen bg-neutral-900 py-20">
-      
-      {/* PAGE HEADING */}
-      <div className="max-w-4xl mx-auto text-center px-4 mb-16">
-        <h2 className="mt-3 mb-6 text-[24px] font-semibold uppercase 
-          bg-gradient-to-r from-purple-400 via-violet-500 to-cyan-400 
-          bg-clip-text text-transparent tracking-wide">
-          Reports
-        </h2>
-
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-tight">
-          Wired to Win – Choosing the Right Manufacturing Tech Stack
-        </h1>
-      </div>
-
-      {/* FLIPBOOK VIEWER */}
-      <div className="flex justify-center">
-        <ImageFlipBook />
-      </div>
+    <main className="bg-black">
+      <ReportSlider
+        heading="Insights to drive stronger performance"
+        cta={{ label: "Know More", href: "/reports" }}
+        items={items}
+      />
     </main>
   );
 }
