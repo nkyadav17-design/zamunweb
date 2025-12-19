@@ -1,29 +1,117 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { Poppins } from "next/font/google";
+
+import ServicesSlider from "@/components/ServicesSlider";
+import ReportSlider from "@/components/ReportSlider";
+import ContactSection from "@/components/ContactSection";
 
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
 
-// ===== Slides used in the hero =====
+/* ================= SERVICES DATA ================= */
+const servicesItems = [
+  {
+    id: "mk-1",
+    category: "Marketing",
+    title: "Marketing Strategy Development",
+    href: "/services/marketing-strategy-development",
+    image: "/images/services/Marketing-Strategy-Development.png",
+  },
+  {
+    id: "br-1",
+    category: "Brand",
+    title: "Brand Positioning and Marketing",
+    href: "/services/brand-positioning-and-marketing",
+    image: "/images/services/Brand-Positioning-and-Marketing.jpg",
+  },
+  {
+    id: "de-1",
+    category: "Design",
+    title: "Design Strategy and Service",
+    href: "/services/design-strategy-and-service",
+    image: "/images/services/Design-Strategy-Services.jpg",
+  },
+  {
+    id: "mk-2",
+    category: "Strategy & Marketing",
+    title: "Content Strategy and Marketing Services",
+    href: "/services/content-strategy-and-marketing",
+    image: "/images/services/Content-Strategy-and-Marketing.jpg",
+  },
+  {
+    id: "mk-3",
+    category: "Marketing",
+    title: "Channel & Campaign Management",
+    href: "/services/channel-and-campaign-marketing",
+    image: "/images/services/Channel-and-Campaign-Marketing.jpg",
+  },
+];
+
+/* ================= REPORTS DATA ================= */
+const homeReportsItems = [
+  {
+    id: "rp-1",
+    category: "Report",
+    title: "Cybersecurity",
+    href: "/reports/cybersecurity",
+    image: "/images/reports/cybersecurity.jpg",
+  },
+  {
+    id: "rp-2",
+    category: "Report",
+    title: "Digital Public Infrastructure",
+    href: "/reports/digital-public-infrastructure",
+    image: "/images/reports/digital-public-infrastructure.jpg",
+  },
+  {
+    id: "rp-3",
+    category: "Report",
+    title: "Electronics Manufacturing",
+    href: "/reports/electronics-manufacturing",
+    image: "/images/reports/electronics-manufacturing.jpg",
+  },
+  {
+    id: "rp-4",
+    category: "Report",
+    title: "Robotics",
+    href: "/reports/robotics",
+    image: "/images/reports/robotic.jpg",
+  },
+  {
+    id: "rp-5",
+    category: "Report",
+    title: "Smart Mobility",
+    href: "/reports/smart-mobility",
+    image: "/images/reports/smart-mobility.jpg",
+  },
+  {
+    id: "rp-6",
+    category: "Report",
+    title: "Wired to Win",
+    href: "/reports/wired-to-win",
+    image: "/images/reports/wired-to-win.jpg",
+  },
+];
+
+/* ================= HERO SLIDES ================= */
 const slides = [
   {
     video: "/images/home-page-video.mp4",
     heading: "Engineer Your Influence",
     buttonText: "Our Services",
-    buttonLink: "services",
+    buttonLink: "#services",
   },
   {
     video: "/images/computer-chip.mp4",
     heading: "Innovate <br /> with Confidence.",
     buttonText: "Case Studies",
-    buttonLink: "case-studies",
+    buttonLink: "#case-studies",
   },
   {
     video: "/images/home-page-video.mp4",
@@ -48,21 +136,6 @@ const slides = [
 export default function Home() {
   const [activeSlide, setActiveSlide] = useState(0);
 
-  // --- Contact form state ---
-  const [contactEmail, setContactEmail] = useState("");
-  const [contactMsg, setContactMsg] = useState<string | null>(null);
-
-  const onContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail);
-    if (!ok) {
-      setContactMsg("Please enter a valid email.");
-      return;
-    }
-    setContactMsg("Thanks! We’ll be in touch soon.");
-    setContactEmail("");
-  };
-
   // Auto-slide every 8s
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +145,7 @@ export default function Home() {
   }, []);
 
   // === Parallax for About ===
-  const aboutRef = useRef(null);
+  const aboutRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: aboutRef,
     offset: ["start end", "end start"],
@@ -80,34 +153,15 @@ export default function Home() {
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   // === Parallax for Case Study ===
-  const csRef = useRef(null);
+  const csRef = useRef<HTMLElement | null>(null);
   const { scrollYProgress: csProg } = useScroll({
     target: csRef,
     offset: ["start end", "end start"],
   });
   const yImg = useTransform(csProg, [0, 1], ["-8%", "8%"]);
 
-  // === Research carousel (click to scroll) ===
-  const rowRef = useRef<HTMLDivElement | null>(null);
-  const getStep = () => {
-    const el = rowRef.current;
-    if (!el) return 0;
-    const card = el.querySelector<HTMLElement>("[data-card]");
-    if (!card) return 0;
-    const w = card.getBoundingClientRect().width;
-    const gap = 24; // space-x-6
-    return Math.round(w + gap);
-  };
-  const nudge = (dir: "left" | "right") => {
-    const el = rowRef.current;
-    if (!el) return;
-    const step = getStep() || 360;
-    el.scrollBy({ left: dir === "right" ? step : -step, behavior: "smooth" });
-  };
-
   return (
     <>
- 
       {/* ================= HERO ================= */}
       <main className={`${poppins.className} relative h-screen w-full overflow-hidden`}>
         <AnimatePresence mode="wait">
@@ -127,7 +181,6 @@ export default function Home() {
           </motion.video>
         </AnimatePresence>
 
-        {/* optional hero gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#1e1e2f]/60 via-[#3b185f]/40 to-[#000]/50" />
 
         <section className="relative z-10 flex flex-col justify-center h-full px-10 sm:px-20 text-left">
@@ -155,7 +208,7 @@ export default function Home() {
         </section>
       </main>
 
-      {/* ================= ABOUT (parallax bg, white band) ================= */}
+      {/* ================= ABOUT ================= */}
       <motion.section
         ref={aboutRef}
         initial={{ opacity: 0, y: 40 }}
@@ -193,7 +246,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* ================= CASE STUDY (parallax bg) ================= */}
+      {/* ================= CASE STUDY ================= */}
       <motion.section
         id="case-studies"
         ref={csRef}
@@ -234,154 +287,24 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* ================= RESEARCH (click-to-scroll, hidden scrollbar) ================= */}
-      <section className="min-h-screen w-full bg-gradient-to-b from-[#08050F] via-[#0E0A1F] to-[#0B0A1B] text-white py-24 px-6 sm:px-12 md:px-20 overflow-hidden">
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center mb-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-4xl sm:text-5xl font-light tracking-wide"
-          >
-            Insights to drive stronger performance
-          </motion.h2>
-
-          <Link
-            href="#"
-            className="mt-4 sm:mt-0 text-sm font-medium text-purple-400 hover:text-purple-300 flex items-center gap-2 transition"
-          >
-            Know More <span className="text-lg">↗</span>
-          </Link>
-        </div>
-
-        <div className="relative">
-          {/* Edge fades */}
-          <div className="pointer-events-none absolute left-0 top-0 h-full w-16 bg-gradient-to-r from-[#08050F] to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-[#0B0A1B] to-transparent" />
-
-          {/* Row */}
-          <div
-            ref={rowRef}
-            className="flex space-x-6 overflow-x-auto no-scrollbar pb-10 pr-16 scroll-smooth snap-x snap-mandatory"
-          >
-            {[1, 2, 3, 4, 5].map((id, idx) => (
-              <motion.div
-                key={id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.08 }}
-                viewport={{ once: true }}
-                className="snap-start flex-shrink-0 w-[280px] sm:w-[320px]"
-                data-card
-              >
-                <Link
-                  href={`/insights/research-${id}`}
-                  className="block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:scale-[1.02] hover:border-white/20 transition-all duration-300"
-                >
-                  <div className="p-5 flex flex-col h-full">
-                    <p className="text-xs text-gray-400 tracking-widest mb-3 uppercase">
-                      RESEARCH REPORT
-                    </p>
-                    <h3 className="text-lg sm:text-xl font-medium leading-snug mb-5">
-                      Unlocking growth through data-driven marketing
-                    </h3>
-                    <div className="mt-auto w-full h-48 rounded-lg overflow-hidden bg-black">
-                      <img
-                        src={`/images/research-${id}.png`}
-                        alt={`Research ${id}`}
-                        className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
-                        draggable={false}
-                      />
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Arrows */}
-          <div className="absolute right-2 -bottom-2 flex gap-2 z-10">
-            <button
-              onClick={() => nudge("left")}
-              className="rounded-full bg-white/10 hover:bg-white/20 border border-white/20 w-10 h-10 grid place-items-center"
-              aria-label="Previous"
-            >
-              ‹
-            </button>
-            <button
-              onClick={() => nudge("right")}
-              className="rounded-full bg-white/10 hover:bg-white/20 border border-white/20 w-10 h-10 grid place-items-center"
-              aria-label="Next"
-            >
-              ›
-            </button>
-          </div>
-        </div>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="mt-16 text-sm sm:text-base text-gray-300 max-w-5xl"
-        >
-          combining creative, content and commerce to drive change. Imagine, build, and run
-          human-centered brand experiences.
-        </motion.p>
+      {/* ================= SERVICES ================= */}
+      <section id="services" className="bg-black py-20 px-6 sm:px-12 md:px-20">
+        <ServicesSlider heading="Our Services" items={servicesItems} />
       </section>
 
-      {/* ================= CONTACT (bottom aligned) ================= */}
-      <motion.section
-        id="contact"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
-        viewport={{ once: true }}
-        className="relative w-full h-[90vh] text-white overflow-hidden flex items-end"
-      >
-        <img
-          src="/images/contact-us.png"
-          alt="Abstract light rays"
-          className="absolute inset-0 h-full w-full object-cover"
+      {/* ================= REPORTS ================= */}
+      <section id="reports" className="bg-black py-20 px-6 sm:px-12 md:px-20">
+        <ReportSlider
+          heading="Where emerging technology meets real-world impact."
+          cta={{ label: "Know More", href: "/reports" }}
+          items={homeReportsItems}
         />
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#1B1331]/55 via-[#0D0A18]/40 to-transparent" />
+      </section>
 
-        <div className="relative z-10 w-full">
-          <div className="mx-auto max-w-7xl w-full px-6 sm:px-10 lg:px-12 pb-20 md:pb-28 lg:pb-32">
-            <h2 className="max-w-3xl text-4xl sm:text-6xl lg:text-[56px] leading-[1.1] font-light mb-6">
-              Get to know more
-              <br /> about our work.
-            </h2>
-
-            <form onSubmit={onContactSubmit} className="w-full max-w-xl">
-              <label htmlFor="contact-email" className="sr-only">
-                Enter your email
-              </label>
-              <div className="flex items-center rounded-xl border border-white/20 bg-black/70 pl-4 pr-2 py-2 shadow-[0_8px_30px_rgba(0,0,0,0.45)] backdrop-blur-sm">
-                <i className="ri-mail-line mr-2 text-white/70" aria-hidden />
-                <input
-                  id="contact-email"
-                  type="email"
-                  value={contactEmail}
-                  onChange={(e) => setContactEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="flex-1 bg-transparent text-white placeholder-white/60 outline-none px-1 py-2"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="ml-3 rounded-lg bg-gradient-to-r from-indigo-400 to-violet-500 px-5 py-2 text-sm font-medium text-white shadow hover:opacity-95 transition"
-                >
-                  Submit
-                </button>
-              </div>
-              {contactMsg && <p className="mt-3 text-sm text-gray-200">{contactMsg}</p>}
-            </form>
-          </div>
-        </div>
-      </motion.section>
-
+      {/* ================= CONTACT ================= */}
+      <section id="contact" className="bg-black">
+        <ContactSection />
+      </section>
     </>
   );
 }

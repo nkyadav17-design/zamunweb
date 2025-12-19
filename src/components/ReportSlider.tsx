@@ -91,14 +91,7 @@ export default function ReportSlider({
           {heading}
         </motion.h1>
 
-        {cta ? (
-          <Link
-            href={cta.href}
-            className="mt-4 sm:mt-0 text-sm font-medium text-purple-400 hover:text-purple-300 flex items-center gap-2 transition"
-          >
-            {cta.label} <span className="text-lg">↗</span>
-          </Link>
-        ) : null}
+
       </div>
 
       <div className="relative">
@@ -192,8 +185,7 @@ export default function ReportSlider({
         viewport={{ once: true }}
         className="mt-16 text-sm sm:text-base text-gray-300 max-w-5xl"
       >
-        combining creative, content and commerce to drive change. Imagine, build,
-        and run human-centered brand experiences.
+        Explore Zamun’s growing knowledge base.
       </motion.p>
     </section>
   );

@@ -73,7 +73,7 @@ export default function OurReportsPage() {
   return (
     <main className="bg-black">
       <ReportSlider
-        heading="Insights to drive stronger performance"
+        heading="Where emerging technology meets real-world impact."
         cta={{ label: "Know More", href: "/reports" }}
         items={items}
       />

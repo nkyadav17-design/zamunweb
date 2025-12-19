@@ -169,7 +169,7 @@ export default function ServicesSlider({
         viewport={{ once: true }}
         className="mt-16 text-sm sm:text-base text-gray-300 max-w-5xl"
       >
-        combining creative, content and commerce to drive change. Imagine, build, and run
+        Combining creative, content and commerce to drive change. Imagine, build, and run
         human-centered brand experiences.
       </motion.p>
     </section>

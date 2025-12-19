@@ -20,7 +20,6 @@ export default function ContactSection() {
     setErrorMsg(null);
     setStatus("idle");
 
-    // Required Fields
     if (!firstName.trim() || !email.trim() || !message.trim() || !phone.trim()) {
       setStatus("error");
       setErrorMsg("Please fill in First Name, Phone, Email & Message.");
@@ -60,8 +59,22 @@ export default function ContactSection() {
   }
 
   return (
-    <section className="contact w-full bg-gradient-to-r from-violet-600/10 via-purple-600/10 to-cyan-500/10 py-20">
-      <div className="max-w-4xl mx-auto px-6 text-center contact-form">
+    <section className="relative w-full overflow-hidden py-20">
+      {/* ✅ Background image */}
+      <img
+        alt="Abstract light rays"
+        className="absolute inset-0 h-full w-full object-cover"
+        src="/images/contact-us.png"
+      />
+
+      {/* ✅ Overlay gradient (your exact gradient) */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#1B1331]/55 via-[#0D0A18]/40 to-transparent" />
+
+      {/* ✅ Optional extra dark overlay for readability (remove if not needed) */}
+      <div className="absolute inset-0 bg-black/20" />
+
+      {/* Content */}
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center contact-form">
         <h3 className="text-center text-2xl sm:text-3xl font-normal text-white mb-8">
           Let’s{" "}
           <span className="bg-gradient-to-r from-[#7dd3fc] to-[#22d3ee] bg-clip-text text-transparent">
@@ -70,8 +83,7 @@ export default function ContactSection() {
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-
-          {/* First Row: First Name + Last Name */}
+          {/* First Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               type="text"
@@ -91,7 +103,7 @@ export default function ContactSection() {
             />
           </div>
 
-          {/* Second Row: Email + Phone */}
+          {/* Second Row */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <input
               type="email"
@@ -134,13 +146,9 @@ export default function ContactSection() {
           {/* Status Messages */}
           <div className="min-h-[20px] text-sm mt-2" aria-live="polite">
             {status === "success" && (
-              <p className="text-emerald-400">
-                Thank you! Your enquiry has been sent.
-              </p>
+              <p className="text-emerald-400">Thank you! Your enquiry has been sent.</p>
             )}
-            {status === "error" && errorMsg && (
-              <p className="text-red-400">{errorMsg}</p>
-            )}
+            {status === "error" && errorMsg && <p className="text-red-400">{errorMsg}</p>}
           </div>
         </form>
       </div>

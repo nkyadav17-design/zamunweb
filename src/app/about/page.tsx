@@ -292,14 +292,18 @@ export default function AboutPage() {
               className="team-card rounded-2xl bg-white text-black overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
             >
               {/* Top gradient tile with image */}
-              <div className="relative">
-                <div className="h-48 w-full bg-gradient-to-br from-indigo-300 via-violet-300 to-pink-300" />
-                <img
-                  src={m.image}
-                  alt={m.name}
-                  className="absolute left-5 bottom-0 h-45 w-45 object-cover grayscale"
-                />
-              </div>
+<div className="relative flex justify-center">
+  <div className="h-48 w-full bg-gradient-to-br from-indigo-300 via-violet-300 to-pink-300" />
+  <div className="absolute bottom-0 h-40 flex items-end justify-center">
+    <img
+      src={m.image}
+      alt={m.name}
+      className="h-full w-auto object-contain  grayscale"
+    />
+  </div>
+</div>
+
+
 
               {/* Info */}
               <div className="pt-7 px-5 pb-5">
