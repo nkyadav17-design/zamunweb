@@ -132,6 +132,7 @@ export default function MarketingStrategyPage() {
           <Image
             src="/images/services/Channel-and-Campaign-Marketing.jpg"
             alt="Marketing Strategy Workshop"
+            title="Marketing Strategy Workshop"
             fill
             priority
             className="hero-img object-cover object-center"

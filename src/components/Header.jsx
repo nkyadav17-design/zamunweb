@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+import { title } from "process";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,26 +42,26 @@ export default function Header() {
           {/* === LEFT: Logo === */}
           <Link
             href="/"
-            className="text-white text-2xl font-semibold tracking-wide"
+            className="text-white text-2xl font-semibold tracking-wide" title="Zamun"
           >
             zamun<span className="text-purple-400">.</span>
           </Link>
 
           {/* === CENTER: Navigation (Desktop) === */}
           <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-10 text-white text-sm font-light">
-            <Link href="/case-studies" className="hover:text-purple-300 transition">
+            <Link href="/case-studies" className="hover:text-purple-300 transition" title="Case Studies">
               Case Studies
             </Link>
-            <Link href="/reports" className="hover:text-purple-300 transition">
+            <Link href="/reports" className="hover:text-purple-300 transition" title="Reports">
               Reports
             </Link>
-            <Link href="/services" className="hover:text-purple-300 transition">
+            <Link href="/services" className="hover:text-purple-300 transition" title="Our Services">
               Our Services
             </Link>
-            <Link href="/blogs" className="hover:text-purple-300 transition">
+            <Link href="/blogs" className="hover:text-purple-300 transition" title="Blogs">
               Blogs
             </Link>
-            <Link href="/about" className="hover:text-purple-300 transition">
+            <Link href="/about" className="hover:text-purple-300 transition" title="About Us">
               About Us
             </Link>
           </nav>

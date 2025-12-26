@@ -10,25 +10,24 @@ export default function CaseStudyPage() {
 
         {/* Intro Copy */}
         <section className="space-y-8">
-          <h1 className="font-light tracking-[-0.02em] leading-[1.30] text-[32px] md:text-[40px] lg:text-[52px]">
-            <span className="[text-wrap:balance]">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 underline underline-offset-[6px] decoration-transparent hover:decoration-indigo-400/40 transition">
-                We are good at this.
-              </span>{" "}
-              Our designers have been designer-ing for years and they've done some great stuff in that time.
-            </span>
-          </h1>
+  <h1 className="font-light tracking-[-0.02em] leading-[1.30] text-[32px] md:text-[40px] lg:text-[52px]">
+    <span className="[text-wrap:balance]">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+        We are good at this.
+      </span>{" "}
+      Our designers have been designer-ing for years and they've done some great stuff in that time.
+    </span>
+  </h1>
 
-          <p className="font-light text-white/85 tracking-[-0.01em] leading-[1.30] text-[32px] md:text-[40px] lg:text-[52px]">
-            They've built products of all scales and sizes, across industries and platforms, and crafted some{" "}
-            <Link
-              href="#"
-              className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400 underline underline-offset-[6px] decoration-transparent hover:decoration-purple-400/40 transition"
-            >
-              uniquely human brands.
-            </Link>
-          </p>
-        </section>
+  <p className="font-light text-white/85 tracking-[-0.01em] leading-[1.30] text-[32px] md:text-[40px] lg:text-[52px]">
+    They've built products of all scales and sizes, across industries and platforms, and crafted some{" "}
+    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+      uniquely human brands.
+    </span>
+  </p>
+</section>
+
+
 
         {/* Spacer */}
         <div className="h-14" />
@@ -39,6 +38,7 @@ export default function CaseStudyPage() {
           captionItems={["Identity, Visual System, On-site Experience", "2024"]}
           bodyText="The Experience Equation: Crafting a World-Class Tech Event"
           imageSrc="/images/case-studies/imc-24/IMC-Hero-img.png"
+          imageTitle="WNS – Industrial & Infrastructure Case Study"
           link="/case-studies/imc-24"
         />
 
@@ -50,6 +50,7 @@ export default function CaseStudyPage() {
           captionItems={["Enters the Access Solutions market"]}
           bodyText="STL enters Access Solutions market"
           imageSrc="/images/case-studies/stl/stl-case-study-cover-page.png"
+          imageTitle="STL enters Access Solutions market"
           link="/case-studies/stl-enters-access-solutions-market"
         />
 
@@ -61,6 +62,7 @@ export default function CaseStudyPage() {
           captionItems={["An industry-specific listing site"]}
           bodyText="Quikr becomes an industry vertical listing site."
           imageSrc="/images/case-studies/quikr/Quikrites-at-the-Inaguratio.jpg"
+          imageTitle="Quikr"
           link="/case-studies/quikr-becomes-an-industry-vertical-listing-site"
         />
 
@@ -72,6 +74,7 @@ export default function CaseStudyPage() {
           captionItems={["Favista emerges as a strong online lead generator."]}
           bodyText="Favista establishes presence as an online lead generator"
           imageSrc="/images/case-studies/favista/favista-office.png"
+          imageTitle="Favista Real Estate Pvt. Ltd"
           link="/case-studies/favista-establishes-presence-as-an-online-lead-generator"
         />
 
@@ -83,6 +86,7 @@ export default function CaseStudyPage() {
           captionItems={["WNS becomes an Industrial & Infrastructure specialist"]}
           bodyText="WNS establishes itself as an Industrial and Infrastructure industry specialist"
           imageSrc="/images/case-studies/wns/WNS.jpeg"
+          imageTitle="WNS"
           link="/case-studies/WNS"
         />
 
@@ -105,21 +109,24 @@ function ProjectBlock({
   captionItems,
   bodyText,
   imageSrc,
+  imageTitle,
   link,
 }: {
   captionTitle: string;
   captionItems: string[];
   bodyText: string;
   imageSrc: string;
+  imageTitle?: string;
   link: string;
 }) {
   return (
     <section className="w-full">
-      <Link href={link} className="block group">
+      <Link href={link} className="block group" title="Case study">
         <div className="relative w-full aspect-[1114/768] rounded-2xl overflow-hidden transition-transform duration-500 group-hover:scale-[1.02]">
           <Image
             src={imageSrc}
-            alt="Case study visual"
+            alt={captionTitle}
+            title={imageTitle || captionTitle}
             fill
             className="object-cover"
             priority
@@ -172,6 +179,7 @@ function Testimonial() {
           <Image
             src="/images/case-studies/imc-24/testimonials-icons.png"
             alt="Testimonial illustration"
+            title="Testimonial illustration"
             width={260}
             height={260}
             className="w-full h-auto object-cover"

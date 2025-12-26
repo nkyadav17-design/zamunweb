@@ -121,7 +121,8 @@ export default function MarketingStrategyPage() {
         <div className="relative w-full h-[70vh] overflow-hidden">
           <Image
             src="/images/services/Design-Strategy-Services.jpg"
-            alt="Marketing Strategy Workshop"
+            alt="Design Strategy and Service"
+            title="Design Strategy and Service"
             fill
             priority
             className="hero-img object-cover object-center"

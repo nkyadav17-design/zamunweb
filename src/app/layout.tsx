@@ -41,17 +41,44 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.zamun.com"),
+
   title: {
     default: "Zamun | Global Marketing & Brand Strategy Partner",
     template: "%s | Zamun",
   },
+
   description:
     "Zamun empowers tech and digital-first companies to grow with strategic branding, content, SEO, and performance marketing — all under one roof.",
+
+  keywords: [
+    "Zamun",
+    "marketing strategy",
+    "brand strategy",
+    "content marketing",
+    "performance marketing",
+    "SEO services",
+    "tech marketing agency",
+    "digital branding",
+    "B2B marketing",
+    "global marketing partner",
+  ],
+
+  authors: [
+    {
+      name: "Zamun",
+      url: "https://www.zamun.com",
+    },
+  ],
+
+  publisher: "Zamun",
+
   robots:
     "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+
   alternates: {
     canonical: "/",
   },
+
   openGraph: {
     type: "website",
     url: "https://www.zamun.com",
@@ -61,6 +88,7 @@ export const metadata: Metadata = {
     siteName: "Zamun",
     locale: "en_US",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Zamun | Marketing Solutions for Tech Brands",
@@ -69,6 +97,7 @@ export const metadata: Metadata = {
     site: "@zamunservices",
     creator: "@zamunservices",
   },
+
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",

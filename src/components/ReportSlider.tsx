@@ -119,12 +119,13 @@ export default function ReportSlider({
                 <div className="mt-auto relative w-full h-90 rounded-lg overflow-hidden bg-black">
                   <Image
                     src={card.image}
-                    alt={card.title}
+                    alt={`${card.title} research report by Zamun`}
+                    title={`${card.title} | Zamun Research Report`}
                     fill
                     sizes="(max-width: 640px) 280px, 320px"
                     className="object-cover transition-transform duration-500 hover:scale-105"
                     draggable={false}
-                    />
+                  />
                 </div>
               </div>
             );
@@ -140,9 +141,10 @@ export default function ReportSlider({
               >
                 {card.href ? (
                   <Link
-                    href={card.href}
-                    className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-white/20 hover:scale-[1.02] transition-all duration-300"
-                  >
+                      href={card.href}
+                      title={`View ${card.title} research report`}
+                      className="group block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-white/20 hover:scale-[1.02] transition-all duration-300"
+                    >
                     {content}
                   </Link>
                 ) : (

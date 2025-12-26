@@ -10,41 +10,42 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between px-6 sm:px-10 lg:px-12 py-8 gap-6">
         
         {/* Logo */}
-        <Link href="/" className="text-2xl font-semibold tracking-wide">
+        <Link href="/" className="text-2xl font-semibold tracking-wide" title="Zamun">
           zamun<span className="text-purple-400">.</span>
         </Link>
 
         {/* Navigation Links */}
         <nav className="flex flex-wrap justify-center gap-6 text-sm text-gray-300">
-          <Link href="/case-studies" className="hover:text-white transition">
+          <Link href="/case-studies" className="hover:text-white transition" title="Case Studies"> 
             Case Studies
           </Link>
-          <Link href="/reports" className="hover:text-white transition">
+          <Link href="/reports" className="hover:text-white transition" title="Reports">
             Reports
           </Link>
-          <Link href="/services" className="hover:text-white transition">
+          <Link href="/services" className="hover:text-white transition" title="Our Services">
             Our Services
           </Link>
-          <Link href="/blogs" className="hover:text-white transition">
+          <Link href="/blogs" className="hover:text-white transition" title="Blogs">
             Blogs
           </Link>
-          <Link href="/about" className="hover:text-white transition">
+          <Link href="/about" className="hover:text-white transition" title="About Us">
             About Us
           </Link>
-          <Link href="/contact" className="hover:text-white transition">
+          <Link href="/contact" className="hover:text-white transition" title="Contact Us">
             Contact Us
           </Link>
         </nav>
 
         {/* Social Icons */}
         <div className="flex items-center gap-5 text-white/80">
-          <a href="https://www.linkedin.com/company/zamun-marketing" target="_blank" rel="noopener noreferrer" aria-label="Linkedin" className="hover:text-white transition">
+          <a href="https://www.linkedin.com/company/zamun-marketing" target="_blank" rel="noopener noreferrer" aria-label="Linkedin" title="Linkedin" className="hover:text-white transition">
             <i className="ri-linkedin-fill text-lg" />
           </a>
            <a
   href="https://x.com/zamunservices"
   aria-label="Twitter"
   target="_blank"
+  title="Twitter"
   rel="noopener noreferrer"
   className="hover:text-white transition"
 >
@@ -55,6 +56,7 @@ export default function Footer() {
   href="https://www.facebook.com/zamunservices"
   aria-label="Facebook"
   target="_blank"
+  title="Facebook"
   rel="noopener noreferrer"
   className="hover:text-white transition"
 >
@@ -65,6 +67,7 @@ export default function Footer() {
   href="https://www.instagram.com/zamunservices/"
   aria-label="Instagram"
   target="_blank"
+  title="Instagram"
   rel="noopener noreferrer"
   className="hover:text-white transition"
 >
@@ -75,6 +78,7 @@ export default function Footer() {
   href="https://www.youtube.com/@ZamunStudios"
   aria-label="YouTube"
   target="_blank"
+  title="YouTube"
   rel="noopener noreferrer"
   className="hover:text-white transition"
 >

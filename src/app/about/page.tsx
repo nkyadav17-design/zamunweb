@@ -180,6 +180,7 @@ export default function AboutPage() {
             <Image
               src="/images/about-zamun.svg" // ✅ Ensure this file is in /public
               alt="Zamun Foundation"
+              title="Zamun Foundation"
               fill
               priority
               className="object-contain"
@@ -296,10 +297,11 @@ export default function AboutPage() {
   <div className="h-48 w-full bg-gradient-to-br from-indigo-300 via-violet-300 to-pink-300" />
   <div className="absolute bottom-0 h-40 flex items-end justify-center">
     <img
-      src={m.image}
-      alt={m.name}
-      className="h-full w-auto object-contain  grayscale"
-    />
+  src={m.image}
+  alt={`${m.name} – ${m.role} at Zamun`}
+  title={`${m.name}, ${m.role} at Zamun`}
+  className="h-full w-auto object-contain grayscale"
+/>
   </div>
 </div>
 
@@ -320,6 +322,7 @@ export default function AboutPage() {
                     rel="noopener noreferrer"
                     className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 transition"
                     aria-label="LinkedIn"
+                    title={`View ${m.name}'s LinkedIn profile`}
                   >
                     <i className="ri-linkedin-fill text-xl"></i>
                   </a>
@@ -329,6 +332,7 @@ export default function AboutPage() {
                     rel="noopener noreferrer"
                     className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 transition"
                     aria-label="X"
+                    title={`View ${m.name}'s X profile`}
                   >
                     <i className="ri-twitter-x-fill text-xl"></i>
                   </a>
@@ -358,6 +362,7 @@ export default function AboutPage() {
         <div className="mt-10 flex justify-left">
           <Link
             href="/contact"
+            title="Contact Zamun – Start a conversation with our team"
             className="bottom-cta inline-flex items-left rounded-xl bg-gradient-to-r from-indigo-400 to-violet-500 px-8 py-5 text-sm font-medium text-white shadow-[0_15px_45px_rgba(99,102,241,0.45)] transition hover:opacity-95"
           >
             Let’s Connect now

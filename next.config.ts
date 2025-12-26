@@ -106,6 +106,16 @@ const nextConfig = {
         destination: "/blogs/from-follower-to-leader-india-s-rise-in-shaping-global-industrial-standards",
         permanent: true,
       },
+      {
+        source: "/organizational-strategies-top-marketing-companies-use-to-crush-the-competition-in-2025",
+        destination: "/blogs/organizational-strategies-top-marketing-companies-use-to-crush-the-competition-in-2025",
+        permanent: true,
+      },
+      {
+        source: "/performance-branding-and-how-it-is-reinventing-marketing-roi",
+        destination: "/blogs/performance-branding-and-how-it-is-reinventing-marketing-roi",
+        permanent: true,
+      },
     ];
   },
 };

@@ -32,6 +32,7 @@ const items = [
     title: "Marketing Strategy Development",
     href: "/services/marketing-strategy-development",
     image: "/images/services/Marketing-Strategy-Development.png",
+    alt: "Marketing strategy development services for technology-driven businesses",
   },
   {
     id: "br-1",
@@ -39,6 +40,7 @@ const items = [
     title: "Brand Positioning and Marketing",
     href: "/services/brand-positioning-and-marketing",
     image: "/images/services/Brand-Positioning-and-Marketing.jpg",
+    alt: "Brand positioning and brand marketing services for B2B companies",
   },
   {
     id: "de-1",
@@ -46,6 +48,7 @@ const items = [
     title: "Design Strategy and Service",
     href: "/services/design-strategy-and-service",
     image: "/images/services/Design-Strategy-Services.jpg",
+    alt: "Design strategy and creative services for modern digital brands",
   },
   {
     id: "mk-2",
@@ -53,6 +56,7 @@ const items = [
     title: "Content Strategy and Marketing Services",
     href: "/services/content-strategy-and-marketing",
     image: "/images/services/Content-Strategy-and-Marketing.jpg",
+    alt: "Content strategy and marketing services for B2B growth",
   },
   {
     id: "mk-3",
@@ -60,6 +64,7 @@ const items = [
     title: "Channel & Campaign Management",
     href: "/services/channel-and-campaign-marketing",
     image: "/images/services/Channel-and-Campaign-Marketing.jpg",
+    alt: "Channel and campaign management services across digital platforms",
   },
   {
     id: "mk-4",
@@ -67,6 +72,7 @@ const items = [
     title: "Specialized Marketing Services",
     href: "/services/specialized-marketing-services",
     image: "/images/services/Specialized-Marketing-Services.jpg",
+    alt: "Specialized marketing services tailored for tech companies",
   },
 ];
 

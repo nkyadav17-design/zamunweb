@@ -220,6 +220,7 @@ export default function Home() {
         <motion.img
           src="/images/about-zamun-01.png"
           alt="Indian market street"
+          title="Indian market street"
           style={{ y }}
           className="absolute inset-0 w-full h-full object-cover will-change-transform"
         />
@@ -259,6 +260,7 @@ export default function Home() {
         <motion.img
           src="/images/case-study-zamun.png"
           alt="IMC 2025 exhibition crowd"
+          title="IMC 2025 exhibition crowd"
           style={{ y: yImg }}
           className="absolute inset-0 w-full h-full object-cover will-change-transform"
         />
@@ -288,18 +290,18 @@ export default function Home() {
       </motion.section>
 
       {/* ================= SERVICES ================= */}
-      <section id="services" className="bg-black py-20 px-6 sm:px-12 md:px-20">
+      <section id="services" className="bg-black">
         <ServicesSlider heading="Our Services" items={servicesItems} />
       </section>
 
       {/* ================= REPORTS ================= */}
-      <section id="reports" className="bg-black py-20 px-6 sm:px-12 md:px-20">
-        <ReportSlider
-          heading="Where emerging technology meets real-world impact."
-          cta={{ label: "Know More", href: "/reports" }}
-          items={homeReportsItems}
-        />
-      </section>
+      <section id="reports" className="bg-black">
+  
+  <ReportSlider
+    cta={{ label: "Know More", href: "/reports" }}
+    items={homeReportsItems}
+  />
+</section>
 
       {/* ================= CONTACT ================= */}
       <section id="contact" className="bg-black">

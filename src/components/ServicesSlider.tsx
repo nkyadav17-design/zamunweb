@@ -11,6 +11,7 @@ type ServiceCard = {
   title: string;
   href?: string;
   image: string; // /public path
+  alt?: string; // NEW
 };
 
 type Props = {
@@ -115,8 +116,10 @@ export default function ServicesSlider({
               className="snap-start flex-shrink-0 w-[280px] sm:w-[320px]"
               data-card
             >
-              <Link
+           <Link
                 href={card.href || "#"}
+                title={card.title} // GOOD UX + SEO
+                aria-label={card.title} // Accessibility
                 className="block bg-[#111] border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition-all duration-300"
               >
                 <div className="p-5 flex flex-col h-full">
@@ -129,7 +132,8 @@ export default function ServicesSlider({
                   <div className="mt-auto relative w-full h-48 rounded-lg overflow-hidden bg-black">
                     <Image
                       src={card.image}
-                      alt={card.title}
+                      alt={card.alt || card.title} // SEO-safe fallback
+                      title={card.title}           // Optional, but helpful
                       fill
                       className="object-cover transition-transform duration-500 hover:scale-105"
                       draggable={false}
