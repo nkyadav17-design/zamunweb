@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
@@ -10,8 +11,16 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between px-6 sm:px-10 lg:px-12 py-8 gap-6">
         
         {/* Logo */}
-        <Link href="/" className="text-2xl font-semibold tracking-wide" title="Zamun">
-          zamun<span className="text-purple-400">.</span>
+        <Link href="/" title="Zamun – Home" className="inline-flex items-center">
+          <Image
+            src="/images/zamun.png"
+            alt="Zamun Logo"
+            title="Zamun Logo"
+            width={80}
+            height={40}
+            priority
+            className="h-auto w-auto"
+          />
         </Link>
 
         {/* Navigation Links */}

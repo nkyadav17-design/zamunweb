@@ -1,7 +1,9 @@
 "use client";
 
+
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { title } from "process";
 
@@ -40,12 +42,17 @@ export default function Header() {
       >
         <div className="max-w-[1800px] mx-auto w-full flex items-center justify-between px-6 sm:px-10 relative">
           {/* === LEFT: Logo === */}
-          <Link
-            href="/"
-            className="text-white text-2xl font-semibold tracking-wide" title="Zamun"
-          >
-            zamun<span className="text-purple-400">.</span>
-          </Link>
+          <Link href="/" title="Zamun – Home" className="inline-flex items-center">
+          <Image
+            src="/images/zamun.png"
+            alt="Zamun Logo"
+            title="Zamun Logo"
+            width={80}
+            height={40}
+            priority
+            className="h-auto w-auto"
+          />
+        </Link>
 
           {/* === CENTER: Navigation (Desktop) === */}
           <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 space-x-10 text-white text-sm font-light">
