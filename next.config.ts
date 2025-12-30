@@ -97,11 +97,6 @@ const nextConfig = {
         permanent: true,
       },
       {
-        source: "/next-gen-bevs-a-sustainable-future-but-with-a-repair-catch",
-        destination: "/blogs/next-gen-bevs-a-sustainable-future-but-with-a-repair-catch",
-        permanent: true,
-      },
-      {
         source: "/from-follower-to-leader-indias-rise-in-shaping-global-industrial-standards",
         destination: "/blogs/from-follower-to-leader-india-s-rise-in-shaping-global-industrial-standards",
         permanent: true,

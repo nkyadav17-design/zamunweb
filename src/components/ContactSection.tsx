@@ -62,9 +62,10 @@ export default function ContactSection() {
     <section className="relative w-full overflow-hidden py-20">
       {/* ✅ Background image */}
       <img
-        alt="Abstract light rays"
+        alt="Contact us"
         className="absolute inset-0 h-full w-full object-cover"
         src="/images/contact-us.png"
+        title="Contact us"
       />
 
       {/* ✅ Overlay gradient (your exact gradient) */}

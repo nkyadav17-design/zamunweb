@@ -8,6 +8,7 @@ import { Poppins } from "next/font/google";
 import ServicesSlider from "@/components/ServicesSlider";
 import ReportSlider from "@/components/ReportSlider";
 import ContactSection from "@/components/ContactSection";
+import { title } from "process";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -56,6 +57,13 @@ const servicesItems = [
 /* ================= REPORTS DATA ================= */
 const homeReportsItems = [
   {
+    id: "rp-6",
+    category: "Report",
+    title: "Wired to Win",
+    href: "/reports/wired-to-win",
+    image: "/images/reports/wired-to-win.jpg",
+  },
+  {
     id: "rp-1",
     category: "Report",
     title: "Cybersecurity",
@@ -90,12 +98,40 @@ const homeReportsItems = [
     href: "/reports/smart-mobility",
     image: "/images/reports/smart-mobility.jpg",
   },
-  {
-    id: "rp-6",
+    {
+    id: "rp-7",
     category: "Report",
-    title: "Wired to Win",
-    href: "/reports/wired-to-win",
-    image: "/images/reports/wired-to-win.jpg",
+    title: "5G and Beyond",
+    href: "/reports/5g-and-6g-beyond",
+    image: "/images/reports/5g-and-6g-beyond.jpg",
+  },
+      {
+    id: "rp-8",
+    category: "Report",
+    title: "Artificial Intelligence",
+    href: "/reports/artificial-intelligence",
+    image: "/images/reports/artificial-intelligence.jpg",
+  },
+      {
+    id: "rp-9",
+    category: "Report",
+    title: "Green Technology",
+    href: "/reports/green-tech",
+    image: "/images/reports/green-tech.jpg",
+  },
+  {
+    id: "rp-10",
+    category: "Report",
+    title: "Industry 4.0",
+    href: "/reports/industry-4.0",
+    image: "/images/reports/industry-4.0.jpg",
+  },
+  {
+    id: "rp-11",
+    category: "Report",
+    title: "Women in Technology",
+    href: "/reports/women-in-tech",
+    image: "/images/reports/women-in-tech.jpg",
   },
 ];
 
@@ -106,6 +142,7 @@ const slides = [
     heading: "Engineer Your Influence",
     buttonText: "Our Services",
     buttonLink: "#services",
+    title: "Our Services",
   },
   {
     video: "/images/computer-chip.mp4",
@@ -199,7 +236,7 @@ export default function Home() {
               />
               <Link
                 href={slides[activeSlide].buttonLink}
-                className="mt-8 inline-block bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg hover:opacity-90 transition"
+                className="mt-8 inline-block bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-6 py-3 rounded-full text-sm font-medium shadow-lg hover:opacity-90 transition" title="Our Service"
               >
                 {slides[activeSlide].buttonText}
               </Link>

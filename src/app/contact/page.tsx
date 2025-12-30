@@ -4,11 +4,11 @@ import type { Metadata } from "next";
 import ContactSection from "@/components/ContactSection";
 
 export const metadata: Metadata = {
-  title: "Contact Us",
+  title: "Contact Zamun – Brand & Growth Marketing Experts",
   description:
     "Get in touch with Zamun for branding, marketing strategy, content, design, and growth solutions. Reach us via email, phone, or visit our Gurgaon office.",
   openGraph: {
-    title: "Contact Us | Zamun",
+    title: "Contact Zamun – Brand & Growth Marketing Experts | Gurugram",
     description:
       "Connect with Zamun’s team to discuss your marketing and brand strategy needs.",
     url: "https://www.zamun.com/contact",
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Us | Zamun",
+    title: "Contact Zamun – Brand & Growth Marketing Experts | Gurugram",
     description: "Let’s collaborate and build your next growth chapter.",
   },
 };
@@ -35,6 +35,7 @@ export default function ContactPage() {
   <Image
     src="/images/contact-us.jpg"
     alt="Contact Zamun - Brand Marketing Collaboration"
+    title="Contact Zamun - Brand Marketing Collaboration"
     fill
     priority
     className="object-cover object-center"
@@ -96,7 +97,7 @@ export default function ContactPage() {
                     Phone number
                   </p>
                   <p className="mt-1 text-zinc-100">
-  <a href="tel:09958960000" className="hover:underline">
+  <a href="tel:09958960000" className="hover:underline" title="099589 60000">
     099589 60000
   </a>
 </p>
@@ -114,6 +115,7 @@ export default function ContactPage() {
                   </p>
                   <a
                     href="mailto:connect@zamun.com"
+                    title="connect@zamun.com"
                     className="mt-1 inline-block text-zinc-100 hover:text-pink-300 transition-colors"
                   >
                     connect@zamun.com
@@ -162,6 +164,7 @@ export default function ContactPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               aria-label="Zamun office location on Google Maps"
+              title="Zamun office location on Google Maps"
             />
           </div>
           <p className="mt-3 text-xs text-zinc-400">
@@ -170,6 +173,7 @@ export default function ContactPage() {
               href="https://maps.app.goo.gl/9KiAYseaK6B9jYAP7"
               target="_blank"
               rel="noopener noreferrer"
+              title="Zamun office location on Google Maps"
               className="underline underline-offset-2 hover:text-zinc-200"
             >
               Open in Google Maps

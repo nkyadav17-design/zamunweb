@@ -26,6 +26,13 @@ export const metadata: Metadata = {
 
 const items = [
   {
+    id: "mk-4",
+    category: "Report",
+    title: "Wired to Win",
+    href: "/reports/wired-to-win",
+    image: "/images/reports/wired-to-win.jpg",
+  },
+  {
     id: "mk-1",
     category: "Report",
     title: "Cybersecurity",
@@ -60,12 +67,40 @@ const items = [
     href: "/reports/smart-mobility",
     image: "/images/reports/smart-mobility.jpg",
   },
-  {
-    id: "mk-4",
+    {
+    id: "mk-5",
     category: "Report",
-    title: "Wired to Win",
-    href: "/reports/wired-to-win",
-    image: "/images/reports/wired-to-win.jpg",
+    title: "5G and Beyond",
+    href: "/reports/5g-and-6g-beyond",
+    image: "/images/reports/5g-and-6g-beyond.jpg",
+  },
+      {
+    id: "mk-6",
+    category: "Report",
+    title: "Artificial Intelligence",
+    href: "/reports/artificial-intelligence",
+    image: "/images/reports/artificial-intelligence.jpg",
+  },
+      {
+    id: "mk-7",
+    category: "Report",
+    title: "Green Technology",
+    href: "/reports/green-tech",
+    image: "/images/reports/green-tech.jpg",
+  },
+  {
+    id: "mk-8",
+    category: "Report",
+    title: "Industry 4.0",
+    href: "/reports/industry-4.0",
+    image: "/images/reports/industry-4.0.jpg",
+  },
+  {
+    id: "mk-9",
+    category: "Report",
+    title: "Women in Technology",
+    href: "/reports/women-in-tech",
+    image: "/images/reports/women-in-tech.jpg",
   },
 ];
 
