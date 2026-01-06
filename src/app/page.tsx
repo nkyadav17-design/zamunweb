@@ -8,6 +8,7 @@ import { Poppins } from "next/font/google";
 import ServicesSlider from "@/components/ServicesSlider";
 import ReportSlider from "@/components/ReportSlider";
 import ContactSection from "@/components/ContactSection";
+import ClientsLogoCarousel from "@/components/ClientsLogoCarousel";
 import { title } from "process";
 
 const poppins = Poppins({
@@ -339,6 +340,13 @@ export default function Home() {
     items={homeReportsItems}
   />
 </section>
+
+
+<section id="clients" className="bg-white py-0">
+  <ClientsLogoCarousel />
+</section>
+
+
 
       {/* ================= CONTACT ================= */}
       <section id="contact" className="bg-black">
