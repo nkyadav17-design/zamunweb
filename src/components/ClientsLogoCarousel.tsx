@@ -10,20 +10,20 @@ type LogoItem = {
 };
 
 const logos: LogoItem[] = [
-  { id: "exicom", name: "Exicom", src: "/images/clients-logo/exicom.png" },
-  { id: "mainstream", name: "The Mainstream", src: "/images/clients-logo/Themainstream.png" },
-  { id: "hfcl", name: "HFCL", src: "/images/clients-logo/hfcl.png" },
-  { id: "airtel", name: "Airtel", src: "/images/clients-logo/airtel.png" },
-  { id: "aistra", name: "Aistra", src: "/images/clients-logo/Aistra.png" },
-  { id: "apar", name: "Apar", src: "/images/clients-logo/apar.png" },
-  { id: "imc", name: "India Mobile Congress", src: "/images/clients-logo/India-mobile-congress.png" },
-  { id: "ima", name: "IMA", src: "/images/clients-logo/IMA.png" },
-  { id: "pavilions", name: "Pavilions & Interiors", src: "/images/clients-logo/Pavilions-and-Interiors.png" },
-  { id: "jubilant", name: "Jubilant Pharmova", src: "/images/clients-logo/Jubilant-pharmova.png" },
-  { id: "mothercare", name: "Mothercare", src: "/images/clients-logo/mothercare.png" },
-  { id: "comviva", name: "Comviva", src: "/images/clients-logo/Comviva.png" },
-  { id: "invenia", name: "Invenia", src: "/images/clients-logo/invenia.png" },
-  { id: "bhabani", name: "Bhabani", src: "/images/clients-logo/bhabani.png" },
+  { id: "exicom", name: "Exicom", src: "/images/Clients-logo/Exicom.png" },
+  { id: "mainstream", name: "The Mainstream", src: "/images/Clients-logo/Themainstream.png" },
+  { id: "hfcl", name: "HFCL", src: "/images/Clients-logo/HFCL.png" },
+  { id: "airtel", name: "Airtel", src: "/images/Clients-logo/airtel.png" },
+  { id: "aistra", name: "Aistra", src: "/images/Clients-logo/Aistra.png" },
+  { id: "apar", name: "Apar", src: "/images/Clients-logo/apar.png" },
+  { id: "imc", name: "India Mobile Congress", src: "/images/Clients-logo/India-mobile-congress.png" },
+  { id: "ima", name: "IMA", src: "/images/Clients-logo/IMA.png" },
+  { id: "pavilions", name: "Pavilions & Interiors", src: "/images/Clients-logo/Pavilions-and-Interiors.png" },
+  { id: "jubilant", name: "Jubilant Pharmova", src: "/images/Clients-logo/Jubilant-pharmova.png" },
+  { id: "mothercare", name: "Mothercare", src: "/images/Clients-logo/mothercare.png" },
+  { id: "comviva", name: "Comviva", src: "/images/Clients-logo/Comviva.png" },
+  { id: "invenia", name: "Invenia", src: "/images/Clients-logo/invenia.png" },
+  { id: "bhabani", name: "Bhabani", src: "/images/Clients-logo/bhabani.png" },
 ];
 
 function LogoRow({ items }: { items: LogoItem[] }) {
