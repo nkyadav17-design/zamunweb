@@ -31,11 +31,17 @@ const aboutJsonLd = {
     {
       "@type": "Person",
       "@id": AUTHOR_ID,
-      name: "REPLACE_AUTHOR_NAME",
+      name: "ZamunZamun Services",
       jobTitle: "Founder",
       worksFor: { "@id": ORG_ID },
       url: `${SITE_URL}/about`,
-      sameAs: ["REPLACE_AUTHOR_LINKEDIN_URL"],
+      sameAs: [
+        "https://www.linkedin.com/company/zamun-marketing/",
+        "https://x.com/zamunservices",
+        "https://www.facebook.com/zamunservices",
+        "https://www.instagram.com/zamunservices/",
+        "https://www.youtube.com/@ZamunStudios"
+],
     },
   ],
 };

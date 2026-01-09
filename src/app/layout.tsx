@@ -30,9 +30,12 @@ const globalJsonLd = {
       email: "connect@zamun.com",
       telephone: "+91-9958960000",
       sameAs: [
-        "REPLACE_LINKEDIN_URL",
-        "REPLACE_INSTAGRAM_URL"
-      ],
+        "https://www.linkedin.com/company/zamun-marketing/",
+        "https://x.com/zamunservices",
+        "https://www.facebook.com/zamunservices",
+        "https://www.instagram.com/zamunservices/",
+        "https://www.youtube.com/@ZamunStudios"
+],
       contactPoint: [
         {
           "@type": "ContactPoint",

@@ -5,6 +5,58 @@ import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 
+import Script from "next/script";
+import { toJsonLd } from "@/lib/schema";
+
+const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const LOGO_URL = `${SITE_URL}/images/zamun.png`;
+
+const homeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/#webpage`,
+      url: `${SITE_URL}/`,
+      name: "Zamun | Global Marketing & Brand Strategy Partner",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORG_ID },
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        url: LOGO_URL
+      },
+      inLanguage: "en"
+    },
+    {
+      "@type": ["LocalBusiness", "ProfessionalService"],
+      "@id": `${SITE_URL}/#localbusiness`,
+      name: "Zamun",
+      url: `${SITE_URL}/`,
+      image: LOGO_URL,
+      telephone: "+91-9958960000",
+      email: "connect@zamun.com",
+      priceRange: "$$",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress:
+          "Vipul Business Park, 205, Badshahpur Sohna Rd Hwy, Central Park II, Sector 48",
+        addressLocality: "Gurugram",
+        addressRegion: "Haryana",
+        postalCode: "122018",
+        addressCountry: "IN"
+      },
+      areaServed: [
+        { "@type": "Country", name: "India" },
+        { "@type": "Place", name: "Global" }
+      ],
+      parentOrganization: { "@id": ORG_ID }
+    }
+  ]
+};
+
+
 import ServicesSlider from "@/components/ServicesSlider";
 import ReportSlider from "@/components/ReportSlider";
 import ContactSection from "@/components/ContactSection";
@@ -200,6 +252,12 @@ export default function Home() {
 
   return (
     <>
+      <Script
+        id="jsonld-home"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: toJsonLd(homeJsonLd) }}
+      />
       {/* ================= HERO ================= */}
       <main className={`${poppins.className} relative h-screen w-full overflow-hidden`}>
         <AnimatePresence mode="wait">
