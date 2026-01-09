@@ -3,6 +3,57 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { toJsonLd } from "@/lib/schema";
+
+const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+
+// IMPORTANT: your /public has zamun.png (not /images)
+// so use: https://www.zamun.com/zamun.png
+const LOGO_URL = `${SITE_URL}/zamun.png`;
+
+const globalJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": ORG_ID,
+      name: "Zamun",
+      url: `${SITE_URL}/`,
+      logo: {
+        "@type": "ImageObject",
+        "@id": `${SITE_URL}/#logo`,
+        url: LOGO_URL,
+        contentUrl: LOGO_URL
+      },
+      email: "connect@zamun.com",
+      telephone: "+91-9958960000",
+      sameAs: [
+        "REPLACE_LINKEDIN_URL",
+        "REPLACE_INSTAGRAM_URL"
+      ],
+      contactPoint: [
+        {
+          "@type": "ContactPoint",
+          contactType: "sales",
+          telephone: "+91-9958960000",
+          email: "connect@zamun.com",
+          availableLanguage: ["en"]
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": WEBSITE_ID,
+      url: `${SITE_URL}/`,
+      name: "Zamun",
+      publisher: { "@id": ORG_ID },
+      inLanguage: "en"
+    }
+  ]
+};
+
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -156,10 +207,10 @@ export default function RootLayout({
 
         {/* Organization JSON-LD schema */}
         <Script
-          id="org-schema"
+          id="jsonld-global"
           type="application/ld+json"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(globalJsonLd) }}
         />
       </head>
 
