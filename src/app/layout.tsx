@@ -19,7 +19,6 @@ const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOCAL_ID = `${SITE_URL}/#localbusiness`;
 
 const LOGO_URL = `${SITE_URL}/zamun.png`;
-const CONTACT_URL = `${SITE_URL}/contact`;
 
 const ADDRESS = {
   "@type": "PostalAddress",
@@ -31,6 +30,12 @@ const ADDRESS = {
   addressCountry: "IN",
 };
 
+/**
+ * ✅ EXACTLY per your requested schemas:
+ * - Organization (with address + contactPoint object)
+ * - LocalBusiness (with geo exactly like your sample)
+ * - WebSite (with SearchAction)
+ */
 const globalJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
@@ -38,14 +43,11 @@ const globalJsonLd = {
     {
       "@type": "Organization",
       "@id": ORG_ID,
+      url: SITE_URL,
       name: "Zamun",
-      url: `${SITE_URL}/`,
-      logo: {
-        "@type": "ImageObject",
-        "@id": `${SITE_URL}/#logo`,
-        url: LOGO_URL,
-        contentUrl: LOGO_URL,
-      },
+      logo: LOGO_URL,
+      description:
+        "Zamun is a global marketing and brand strategy partner for technology and digital-first companies, delivering branding, content, SEO, design, and performance marketing to drive measurable growth.",
       email: "connect@zamun.com",
       telephone: "+91-9958960000",
       sameAs: [
@@ -55,15 +57,36 @@ const globalJsonLd = {
         "https://www.instagram.com/zamunservices/",
         "https://www.youtube.com/@ZamunStudios",
       ],
-      contactPoint: [
-        {
-          "@type": "ContactPoint",
-          contactType: "sales",
-          telephone: "+91-9958960000",
-          email: "connect@zamun.com",
-          availableLanguage: ["en"],
-          url: CONTACT_URL,
-        },
+      address: ADDRESS,
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+91-9958960000",
+        contactType: "customer service",
+        areaServed: "IN",
+        availableLanguage: "en",
+      },
+    },
+
+    // ---------------- LOCAL BUSINESS ----------------
+    {
+      "@type": "LocalBusiness",
+      "@id": LOCAL_ID,
+      name: "Zamun Headquarters - Marketing & Brand Strategy Agency",
+      image: LOGO_URL,
+      url: `${SITE_URL}/`,
+      telephone: "+91-9958960000",
+      address: ADDRESS,
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: "28.6139",
+        longitude: "77.2090",
+      },
+      sameAs: [
+        "https://www.linkedin.com/company/zamun-marketing/",
+        "https://x.com/zamunservices",
+        "https://www.facebook.com/zamunservices",
+        "https://www.instagram.com/zamunservices/",
+        "https://www.youtube.com/@ZamunStudios",
       ],
     },
 
@@ -71,31 +94,14 @@ const globalJsonLd = {
     {
       "@type": "WebSite",
       "@id": WEBSITE_ID,
-      url: `${SITE_URL}/`,
       name: "Zamun",
+      url: `${SITE_URL}/`,
       publisher: { "@id": ORG_ID },
-      inLanguage: "en",
       potentialAction: {
         "@type": "SearchAction",
         target: `${SITE_URL}/blogs?search={search_term_string}`,
         "query-input": "required name=search_term_string",
       },
-    },
-
-    // ---------------- LOCAL BUSINESS (OPTIONAL BUT OK IF ADDRESS IS PUBLIC) ----------------
-    {
-      "@type": ["ProfessionalService", "LocalBusiness"],
-      "@id": LOCAL_ID,
-      name: "Zamun",
-      url: `${SITE_URL}/`,
-      image: LOGO_URL,
-      logo: { "@id": `${SITE_URL}/#logo` },
-      telephone: "+91-9958960000",
-      email: "connect@zamun.com",
-      priceRange: "$$",
-      address: ADDRESS,
-      parentOrganization: { "@id": ORG_ID },
-      areaServed: [{ "@type": "Country", name: "India" }],
     },
   ],
 };
@@ -107,15 +113,8 @@ export const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 /* ================== GLOBAL METADATA ================== */
 export const metadata: Metadata = {
@@ -192,7 +191,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* Global JSON-LD */}
+        {/* Global JSON-LD (Organization + LocalBusiness + WebSite) */}
         <Script
           id="jsonld-global"
           type="application/ld+json"
