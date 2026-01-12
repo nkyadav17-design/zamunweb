@@ -4,8 +4,6 @@ import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-import { toJsonLd } from "@/lib/schema";
-
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -30,11 +28,10 @@ const ADDRESS = {
   addressCountry: "IN",
 };
 
-// ✅ 3 schemas separate (Organization + LocalBusiness + WebSite)
+// ✅ Organization (Zamun)
 const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  "@id": ORG_ID,
   url: SITE_URL,
   name: "Zamun",
   logo: LOGO_URL,
@@ -59,17 +56,16 @@ const organizationJsonLd = {
   },
 };
 
+// ✅ LocalBusiness (Zamun HQ)
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
-  "@id": LOCAL_ID,
-  name: "Zamun Headquarters - Marketing & Brand Strategy Agency",
+  name: "Zamun – Marketing & Brand Strategy Agency",
   image: LOGO_URL,
-  url: SITE_URL,
+  "@id": LOCAL_ID,
+  url: `${SITE_URL}/`,
   telephone: "+91-9958960000",
   address: ADDRESS,
-  // ✅ Replace with your exact office GPS if you have it.
-  // These are generic placeholders; update when you confirm exact coordinates for Vipul Business Park.
   geo: {
     "@type": "GeoCoordinates",
     latitude: "28.4595",
@@ -84,12 +80,12 @@ const localBusinessJsonLd = {
   ],
 };
 
+// ✅ WebSite (Zamun)
 const websiteJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "@id": WEBSITE_ID,
   name: "Zamun",
-  url: SITE_URL,
+  url: `${SITE_URL}/`,
   publisher: { "@id": ORG_ID },
   potentialAction: {
     "@type": "SearchAction",
@@ -106,7 +102,10 @@ export const poppins = Poppins({
 });
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 /* ================== GLOBAL METADATA ================== */
 export const metadata: Metadata = {
@@ -131,7 +130,8 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Zamun", url: SITE_URL }],
   publisher: "Zamun",
-  robots: "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
+  robots:
+    "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
@@ -187,24 +187,26 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Script
           id="jsonld-organization"
           type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: toJsonLd(organizationJsonLd) }}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
 
         {/* ✅ LocalBusiness JSON-LD */}
         <Script
           id="jsonld-localbusiness"
           type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: toJsonLd(localBusinessJsonLd) }}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd),
+          }}
         />
 
         {/* ✅ WebSite JSON-LD */}
         <Script
           id="jsonld-website"
           type="application/ld+json"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: toJsonLd(websiteJsonLd) }}
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
 
