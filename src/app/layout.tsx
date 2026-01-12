@@ -30,80 +30,72 @@ const ADDRESS = {
   addressCountry: "IN",
 };
 
-/**
- * ✅ EXACTLY per your requested schemas:
- * - Organization (with address + contactPoint object)
- * - LocalBusiness (with geo exactly like your sample)
- * - WebSite (with SearchAction)
- */
-const globalJsonLd = {
+// ✅ 3 schemas separate (Organization + LocalBusiness + WebSite)
+const organizationJsonLd = {
   "@context": "https://schema.org",
-  "@graph": [
-    // ---------------- ORGANIZATION ----------------
-    {
-      "@type": "Organization",
-      "@id": ORG_ID,
-      url: SITE_URL,
-      name: "Zamun",
-      logo: LOGO_URL,
-      description:
-        "Zamun is a global marketing and brand strategy partner for technology and digital-first companies, delivering branding, content, SEO, design, and performance marketing to drive measurable growth.",
-      email: "connect@zamun.com",
-      telephone: "+91-9958960000",
-      sameAs: [
-        "https://www.linkedin.com/company/zamun-marketing/",
-        "https://x.com/zamunservices",
-        "https://www.facebook.com/zamunservices",
-        "https://www.instagram.com/zamunservices/",
-        "https://www.youtube.com/@ZamunStudios",
-      ],
-      address: ADDRESS,
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: "+91-9958960000",
-        contactType: "customer service",
-        areaServed: "IN",
-        availableLanguage: "en",
-      },
-    },
-
-    // ---------------- LOCAL BUSINESS ----------------
-    {
-      "@type": "LocalBusiness",
-      "@id": LOCAL_ID,
-      name: "Zamun Headquarters - Marketing & Brand Strategy Agency",
-      image: LOGO_URL,
-      url: `${SITE_URL}/`,
-      telephone: "+91-9958960000",
-      address: ADDRESS,
-      geo: {
-        "@type": "GeoCoordinates",
-        latitude: "28.6139",
-        longitude: "77.2090",
-      },
-      sameAs: [
-        "https://www.linkedin.com/company/zamun-marketing/",
-        "https://x.com/zamunservices",
-        "https://www.facebook.com/zamunservices",
-        "https://www.instagram.com/zamunservices/",
-        "https://www.youtube.com/@ZamunStudios",
-      ],
-    },
-
-    // ---------------- WEBSITE ----------------
-    {
-      "@type": "WebSite",
-      "@id": WEBSITE_ID,
-      name: "Zamun",
-      url: `${SITE_URL}/`,
-      publisher: { "@id": ORG_ID },
-      potentialAction: {
-        "@type": "SearchAction",
-        target: `${SITE_URL}/blogs?search={search_term_string}`,
-        "query-input": "required name=search_term_string",
-      },
-    },
+  "@type": "Organization",
+  "@id": ORG_ID,
+  url: SITE_URL,
+  name: "Zamun",
+  logo: LOGO_URL,
+  description:
+    "Zamun is a global marketing and brand strategy partner for technology and digital-first companies, delivering branding, content, SEO, design, and performance marketing to drive measurable growth.",
+  email: "connect@zamun.com",
+  telephone: "+91-9958960000",
+  sameAs: [
+    "https://www.linkedin.com/company/zamun-marketing/",
+    "https://x.com/zamunservices",
+    "https://www.facebook.com/zamunservices",
+    "https://www.instagram.com/zamunservices/",
+    "https://www.youtube.com/@ZamunStudios",
   ],
+  address: ADDRESS,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+91-9958960000",
+    contactType: "customer service",
+    areaServed: "IN",
+    availableLanguage: "en",
+  },
+};
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": LOCAL_ID,
+  name: "Zamun Headquarters - Marketing & Brand Strategy Agency",
+  image: LOGO_URL,
+  url: SITE_URL,
+  telephone: "+91-9958960000",
+  address: ADDRESS,
+  // ✅ Replace with your exact office GPS if you have it.
+  // These are generic placeholders; update when you confirm exact coordinates for Vipul Business Park.
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: "28.4595",
+    longitude: "77.0796",
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/zamun-marketing/",
+    "https://x.com/zamunservices",
+    "https://www.facebook.com/zamunservices",
+    "https://www.instagram.com/zamunservices/",
+    "https://www.youtube.com/@ZamunStudios",
+  ],
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  name: "Zamun",
+  url: SITE_URL,
+  publisher: { "@id": ORG_ID },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: `${SITE_URL}/blogs?search={search_term_string}`,
+    "query-input": "required name=search_term_string",
+  },
 };
 
 export const poppins = Poppins({
@@ -191,12 +183,28 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
 
-        {/* Global JSON-LD (Organization + LocalBusiness + WebSite) */}
+        {/* ✅ Organization JSON-LD */}
         <Script
-          id="jsonld-global"
+          id="jsonld-organization"
           type="application/ld+json"
           strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: toJsonLd(globalJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: toJsonLd(organizationJsonLd) }}
+        />
+
+        {/* ✅ LocalBusiness JSON-LD */}
+        <Script
+          id="jsonld-localbusiness"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(localBusinessJsonLd) }}
+        />
+
+        {/* ✅ WebSite JSON-LD */}
+        <Script
+          id="jsonld-website"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: toJsonLd(websiteJsonLd) }}
         />
       </head>
 
