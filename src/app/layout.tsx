@@ -17,17 +17,10 @@ const SITE_URL = "https://www.zamun.com";
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
 const LOCAL_ID = `${SITE_URL}/#localbusiness`;
-const BLOG_ID = `${SITE_URL}/blogs#blog`;
-const AUTHOR_ID = `${SITE_URL}/#author-amritarupa-laha`;
 
 const LOGO_URL = `${SITE_URL}/zamun.png`;
 const CONTACT_URL = `${SITE_URL}/contact`;
 
-// ✅ Use direct Sanity image URL (better for schema than _next/image)
-const AUTHOR_IMAGE =
-  "https://cdn.sanity.io/images/ft9hq9oa/production/441861c8c04dde2e8eed0e731cf5fcc3af238f1d-200x200.png";
-
-// ✅ Address (as visible on zamun.com contact page)
 const ADDRESS = {
   "@type": "PostalAddress",
   streetAddress:
@@ -89,7 +82,7 @@ const globalJsonLd = {
       },
     },
 
-    // ---------------- LOCAL BUSINESS / PROFESSIONAL SERVICE ----------------
+    // ---------------- LOCAL BUSINESS (OPTIONAL BUT OK IF ADDRESS IS PUBLIC) ----------------
     {
       "@type": ["ProfessionalService", "LocalBusiness"],
       "@id": LOCAL_ID,
@@ -102,87 +95,7 @@ const globalJsonLd = {
       priceRange: "$$",
       address: ADDRESS,
       parentOrganization: { "@id": ORG_ID },
-      areaServed: [
-        { "@type": "Country", name: "India" },
-        { "@type": "Place", name: "Global" },
-      ],
-      sameAs: [
-        "https://www.linkedin.com/company/zamun-marketing/",
-        "https://x.com/zamunservices",
-        "https://www.instagram.com/zamunservices/",
-      ],
-    },
-
-    // ---------------- AUTHOR (PERSON) ----------------
-    {
-      "@type": "Person",
-      "@id": AUTHOR_ID,
-      name: "Amritarupa Laha",
-      image: AUTHOR_IMAGE,
-      url: `${SITE_URL}/blogs`,
-      worksFor: { "@id": ORG_ID },
-      jobTitle: "Author",
-    },
-
-    // ---------------- BLOG (HUB ENTITY) ----------------
-    {
-      "@type": "Blog",
-      "@id": BLOG_ID,
-      name: "Zamun Blogs",
-      url: `${SITE_URL}/blogs`,
-      publisher: { "@id": ORG_ID },
-      inLanguage: "en",
-    },
-
-    // ---------------- SERVICES CATALOG ----------------
-    // Global services list (safe to keep in layout)
-    {
-      "@type": "OfferCatalog",
-      "@id": `${SITE_URL}/services#catalog`,
-      name: "Zamun Services",
-      url: `${SITE_URL}/services`,
-      itemListElement: [
-        {
-          "@type": "Offer",
-          name: "Marketing Strategy Development",
-          url: `${SITE_URL}/services/marketing-strategy-development`,
-          itemOffered: {
-            "@type": "Service",
-            name: "Marketing Strategy Development",
-            provider: { "@id": ORG_ID },
-          },
-        },
-        {
-          "@type": "Offer",
-          name: "Content Strategy and Marketing",
-          url: `${SITE_URL}/services/content-strategy-and-marketing`,
-          itemOffered: {
-            "@type": "Service",
-            name: "Content Strategy and Marketing",
-            provider: { "@id": ORG_ID },
-          },
-        },
-        {
-          "@type": "Offer",
-          name: "Design Strategy and Service",
-          url: `${SITE_URL}/services/design-strategy-and-service`,
-          itemOffered: {
-            "@type": "Service",
-            name: "Design Strategy and Service",
-            provider: { "@id": ORG_ID },
-          },
-        },
-        {
-          "@type": "Offer",
-          name: "Specialized Marketing Services",
-          url: `${SITE_URL}/services/specialized-marketing-services`,
-          itemOffered: {
-            "@type": "Service",
-            name: "Specialized Marketing Services",
-            provider: { "@id": ORG_ID },
-          },
-        },
-      ],
+      areaServed: [{ "@type": "Country", name: "India" }],
     },
   ],
 };
