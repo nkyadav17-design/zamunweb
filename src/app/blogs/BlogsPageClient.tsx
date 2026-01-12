@@ -1,6 +1,9 @@
 // app/blogs/BlogsPageClient.tsx
 "use client";
 
+import Script from "next/script";
+import { toJsonLd } from "@/lib/schema";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -10,11 +13,38 @@ import { blogListQuery } from "@/sanity/lib/queries";
 type Blog = {
   _id: string;
   title: string;
-  slug?: { current?: string }; // 👈 optional slug
+  slug?: { current?: string };
   image?: string;
   category?: string;
   excerpt?: string;
   publishedAt?: string;
+};
+
+const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+
+const blogsIndexJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/blogs#webpage`,
+      url: `${SITE_URL}/blogs`,
+      name: "Marketing Blogs & Insights | Zamun",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORG_ID },
+      inLanguage: "en",
+    },
+    {
+      "@type": "Blog",
+      "@id": `${SITE_URL}/blogs#blog`,
+      name: "Zamun Blogs",
+      url: `${SITE_URL}/blogs`,
+      publisher: { "@id": ORG_ID },
+      inLanguage: "en",
+    },
+  ],
 };
 
 export default function BlogsPageClient() {
@@ -43,80 +73,90 @@ export default function BlogsPageClient() {
   }, [blogs, activeCategory]);
 
   return (
-    <main className="min-h-screen bg-[#0B0B10] text-white">
-      {/* Header */}
-      <section className="mx-auto w-full max-w-7xl px-6 pt-16 md:pt-24">
-        <h1 className="text-2xl sm:text-5xl font-light bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-normal">
-          Our Blogs.
-        </h1>
-        <p className="mt-6 text-2xl sm:text-5xl font-light leading-tight">
-          Stay ahead with insights from the experts.
-        </p>
+    <>
+      {/* ✅ Schema for /blogs */}
+      <Script
+        id="jsonld-blogs-index"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: toJsonLd(blogsIndexJsonLd) }}
+      />
 
-        {/* Category bar */}
-        <div className="mt-8 flex items-center gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {categories.map((c) => {
-            const isActive = c === activeCategory;
-            return (
-              <button
-                key={c}
-                onClick={() => setActiveCategory(c)}
-                className={[
-                  "whitespace-nowrap rounded-full border px-4 py-2 text-sm md:text-[15px] transition",
-                  isActive
-                    ? "border-white/20 bg-white/10"
-                    : "border-white/10 bg-white/5 hover:bg-white/10",
-                ].join(" ")}
-              >
-                {c === "All" ? "View all" : c}
-              </button>
-            );
-          })}
-        </div>
-      </section>
+      <main className="min-h-screen bg-[#0B0B10] text-white">
+        {/* Header */}
+        <section className="mx-auto w-full max-w-7xl px-6 pt-16 md:pt-24">
+          <h1 className="text-2xl sm:text-5xl font-light bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent leading-normal">
+            Our Blogs.
+          </h1>
+          <p className="mt-6 text-2xl sm:text-5xl font-light leading-tight">
+            Stay ahead with insights from the experts.
+          </p>
 
-      {/* Blog Grid */}
-      <section className="mx-auto w-full max-w-7xl px-6 pb-16 md:pb-24">
-        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredBlogs.map((b) => {
-            const slug = b.slug?.current; // 👈 safe access
+          {/* Category bar */}
+          <div className="mt-8 flex items-center gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {categories.map((c) => {
+              const isActive = c === activeCategory;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setActiveCategory(c)}
+                  className={[
+                    "whitespace-nowrap rounded-full border px-4 py-2 text-sm md:text-[15px] transition",
+                    isActive
+                      ? "border-white/20 bg-white/10"
+                      : "border-white/10 bg-white/5 hover:bg-white/10",
+                  ].join(" ")}
+                >
+                  {c === "All" ? "View all" : c}
+                </button>
+              );
+            })}
+          </div>
+        </section>
 
-            return (
-              <Link
-                key={b._id}
-                href={slug ? `/blogs/${slug}` : "#"} // 👈 null slug pe crash nahi hoga
-                className="group rounded-2xl bg-[#0E0E15] p-2 transition hover:bg-white/5"
-              >
-                {/* Image block */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
-                  <Image
-                    src={b.image || "/images/blog-img-1.png"} // fallback image in /public/images
-                    alt={b.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
+        {/* Blog Grid */}
+        <section className="mx-auto w-full max-w-7xl px-6 pb-16 md:pb-24">
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredBlogs.map((b) => {
+              const slug = b.slug?.current;
 
-                {/* Meta */}
-                <div className="px-2 pb-3 pt-3">
-                  <p className="text-[11px] uppercase tracking-widest text-indigo-300/90">
-                    {b.category || "Uncategorized"}
-                  </p>
+              return (
+                <Link
+                  key={b._id}
+                  href={slug ? `/blogs/${slug}` : "#"}
+                  className="group rounded-2xl bg-[#0E0E15] p-2 transition hover:bg-white/5"
+                >
+                  {/* Image block */}
+                  <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl">
+                    <Image
+                      src={b.image || "/images/blog-img-1.png"}
+                      alt={b.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
 
-                  <h3 className="mt-1 line-clamp-2 text-[17px] font-semibold leading-snug group-hover:text-indigo-400 transition">
-                    {b.title}
-                  </h3>
+                  {/* Meta */}
+                  <div className="px-2 pb-3 pt-3">
+                    <p className="text-[11px] uppercase tracking-widest text-indigo-300/90">
+                      {b.category || "Uncategorized"}
+                    </p>
 
-                  <p className="mt-2 line-clamp-3 text-sm text-white/70">
-                    {b.excerpt || "Click to read full post"}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </section>
-    </main>
+                    <h3 className="mt-1 line-clamp-2 text-[17px] font-semibold leading-snug group-hover:text-indigo-400 transition">
+                      {b.title}
+                    </h3>
+
+                    <p className="mt-2 line-clamp-3 text-sm text-white/70">
+                      {b.excerpt || "Click to read full post"}
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
