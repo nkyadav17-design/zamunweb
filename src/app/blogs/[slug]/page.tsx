@@ -3,12 +3,8 @@ import Script from "next/script";
 import { sanityClient } from "@/sanity/lib/client";
 import BlogDetailPageClient from "./BlogDetailPageClient";
 import { urlFor } from "@/sanity/lib/image";
-import { toJsonLd } from "@/lib/schema";
 
 const SITE_URL = "https://www.zamun.com";
-const ORG_ID = `${SITE_URL}/#organization`;
-const WEBSITE_ID = `${SITE_URL}/#website`;
-const AUTHOR_ID = `${SITE_URL}/#author`; // keep if defined, else replace with Person
 
 /* ---------------- METADATA ---------------- */
 export async function generateMetadata(props: any): Promise<Metadata> {
@@ -59,7 +55,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
   };
 }
 
-/* ---------------- PAGE + SCHEMA ---------------- */
+/* ---------------- PAGE ---------------- */
 export default async function BlogDetailPage(props: any) {
   const params = await props.params;
   const slug = (params as { slug: string }).slug;
@@ -68,57 +64,171 @@ export default async function BlogDetailPage(props: any) {
     `*[_type == "post" && slug.current == $slug][0]{
       title,
       excerpt,
+      mainImage,
       publishedAt,
       _updatedAt,
-      "imageUrl": mainImage.asset->url
+      "authorName": author->name
     }`,
     { slug }
   );
 
-  if (!post) {
-    return <BlogDetailPageClient slug={slug} />;
-  }
+  // Always render page (even if post is missing)
+  if (!post) return <BlogDetailPageClient slug={slug} />;
 
-  const url = `${SITE_URL}/blogs/${slug}`;
+  const pageUrl = `${SITE_URL}/blogs/${slug}`;
 
+  const featuredImage = post.mainImage
+    ? urlFor(post.mainImage).width(1200).height(630).url()
+    : undefined;
+
+  const title = post.title || "Blog | Zamun";
+  const description =
+    post.excerpt || "Explore marketing, branding, and growth insights from Zamun.";
+
+  const authorName = post.authorName || "Zamun Team";
+
+  const datePublished = post.publishedAt
+    ? new Date(post.publishedAt).toISOString()
+    : undefined;
+
+  const dateModified = post._updatedAt
+    ? new Date(post._updatedAt).toISOString()
+    : datePublished;
+
+  /* ---------------- BLOGPOSTING SCHEMA ---------------- */
   const blogSchema = {
     "@context": "https://schema.org",
-    "@graph": [
+    "@type": "BlogPosting",
+    "@id": `${pageUrl}#blogposting`,
+    mainEntityOfPage: pageUrl,
+    headline: title,
+    name: title,
+    description,
+    ...(datePublished ? { datePublished } : {}),
+    ...(dateModified ? { dateModified } : {}),
+    author: {
+      "@type": "Person",
+      name: authorName,
+      url: `${SITE_URL}/`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Zamun",
+      url: `${SITE_URL}/`,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/assets/img/logo.png`,
+      },
+    },
+    ...(featuredImage ? { image: [featuredImage] } : {}),
+    inLanguage: "en",
+    keywords: [
+      "Personalized Marketing",
+      "Marketing Trends",
+      "Customer Experience",
+      "AI in Marketing",
+      "Segmentation",
+      "Marketing Automation",
+    ],
+  };
+
+  /* ---------------- BREADCRUMB SCHEMA ---------------- */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
       {
-        "@type": "WebPage",
-        "@id": `${url}#webpage`,
-        url,
-        name: post.title,
-        isPartOf: { "@id": WEBSITE_ID },
-        about: { "@id": ORG_ID },
-        inLanguage: "en",
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_URL}/`,
       },
       {
-        "@type": "BlogPosting",
-        "@id": `${url}#blogposting`,
-        mainEntityOfPage: { "@id": `${url}#webpage` },
-        headline: post.title,
-        description: post.excerpt,
-        image: post.imageUrl ? [post.imageUrl] : undefined,
-        author: { "@id": AUTHOR_ID },
-        publisher: { "@id": ORG_ID },
-        datePublished: post.publishedAt,
-        dateModified: post._updatedAt || post.publishedAt,
+        "@type": "ListItem",
+        position: 2,
+        name: "Blogs",
+        item: `${SITE_URL}/blogs`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: title,
+        item: pageUrl,
+      },
+    ],
+  };
+
+  /* ---------------- FAQPAGE SCHEMA ---------------- */
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is personalized marketing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Personalized marketing tailors messages, offers, and experiences to individual users based on behavior, preferences, and context, improving relevance and engagement.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Why is personalized marketing important in 2025?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Customers expect relevant experiences across channels. Personalization helps brands improve conversion rates, retention, and customer satisfaction.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How does AI support personalized marketing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "AI enables predictive targeting, automated segmentation, real-time recommendations, and dynamic content, making personalization scalable.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What data is required for personalization?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Effective personalization uses first-party data such as browsing behavior, purchase history, CRM records, and preferences collected with consent.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How can businesses start with personalized marketing?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Start with simple segmentation, personalized emails, and content recommendations, then expand into automation and AI-based targeting.",
+        },
       },
     ],
   };
 
   return (
     <>
-      {/* ✅ BlogPosting Schema */}
       <Script
-        id={`zamun-blog-schema-${slug}`}
+        id="zamun-blogposting-schema"
         type="application/ld+json"
         strategy="afterInteractive"
-        dangerouslySetInnerHTML={{ __html: toJsonLd(blogSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
       />
 
-      {/* Blog UI */}
+      <Script
+        id="zamun-breadcrumb-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
+      <Script
+        id="zamun-faqpage-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
+
       <BlogDetailPageClient slug={slug} />
     </>
   );
