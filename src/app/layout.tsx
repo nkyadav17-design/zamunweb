@@ -56,30 +56,6 @@ const organizationJsonLd = {
   },
 };
 
-// ✅ LocalBusiness (Zamun HQ)
-const localBusinessJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  name: "Zamun – Marketing & Brand Strategy Agency",
-  image: LOGO_URL,
-  "@id": LOCAL_ID,
-  url: `${SITE_URL}/`,
-  telephone: "+91-9958960000",
-  address: ADDRESS,
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: "28.4595",
-    longitude: "77.0796",
-  },
-  sameAs: [
-    "https://www.linkedin.com/company/zamun-marketing/",
-    "https://x.com/zamunservices",
-    "https://www.facebook.com/zamunservices",
-    "https://www.instagram.com/zamunservices/",
-    "https://www.youtube.com/@ZamunStudios",
-  ],
-};
-
 // ✅ WebSite (Zamun)
 const websiteJsonLd = {
   "@context": "https://schema.org",
@@ -189,16 +165,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-
-        {/* ✅ LocalBusiness JSON-LD */}
-        <Script
-          id="jsonld-localbusiness"
-          type="application/ld+json"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessJsonLd),
-          }}
         />
 
         {/* ✅ WebSite JSON-LD */}
