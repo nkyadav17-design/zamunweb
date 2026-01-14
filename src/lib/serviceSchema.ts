@@ -20,11 +20,11 @@ export function buildServiceJsonLd(input: {
     {
       "@type": "WebPage",
       "@id": `${url}#webpage`,
-      url,
-      name: `${input.title} | Zamun`,
-      isPartOf: { "@id": input.websiteId },
-      about: { "@id": input.orgId },
-      inLanguage: "en",
+      "url": url,
+      "name": `${input.title} | Zamun`,
+      "isPartOf": { "@id": input.websiteId },
+      "about": { "@id": input.orgId },
+      "inLanguage": "en"
     },
 
     /* ===========================
@@ -33,49 +33,49 @@ export function buildServiceJsonLd(input: {
     {
       "@type": "Service",
       "@id": `${url}#service`,
-      name: input.title,
-      url,
-      provider: { "@id": input.orgId },
-      areaServed: [
-        { "@type": "Country", name: "India" },
-        { "@type": "Place", name: "Global" },
+      "name": input.title,
+      "url": url,
+      "provider": { "@id": input.orgId },
+      "areaServed": [
+        { "@type": "Country", "name": "India" },
+        { "@type": "Place", "name": "Global" }
       ],
-      availableChannel: {
+      "availableChannel": {
         "@type": "ServiceChannel",
-        serviceLocation: {
+        "serviceLocation": {
           "@type": "Place",
-          name: "Online",
-        },
+          "name": "Online"
+        }
       },
-      offers: {
+      "offers": {
         "@type": "Offer",
-        url: `${input.siteUrl}/contact`,
-        availability: "https://schema.org/InStock",
-      },
-    },
+        "url": `${input.siteUrl}/contact`,
+        "availability": "https://schema.org/InStock"
+      }
+    }
   ];
 
   /* ===========================
-     FAQ (Only if visible)
+     FAQ (only if visible)
   ============================ */
   if (input.faq && input.faq.length > 0) {
     graph.push({
       "@type": "FAQPage",
       "@id": `${url}#faq`,
-      url,
-      mainEntity: input.faq.map((item) => ({
+      "url": url,
+      "mainEntity": input.faq.map((item) => ({
         "@type": "Question",
-        name: item.q,
-        acceptedAnswer: {
+        "name": item.q,
+        "acceptedAnswer": {
           "@type": "Answer",
-          text: item.a,
-        },
-      })),
+          "text": item.a
+        }
+      }))
     });
   }
 
   return {
     "@context": "https://schema.org",
-    "@graph": graph,
+    "@graph": graph
   };
 }

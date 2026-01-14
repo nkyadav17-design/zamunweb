@@ -18,6 +18,12 @@ type Blog = {
   publishedAt?: string;
 };
 
+const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+const BLOGS_URL = `${SITE_URL}/blogs`;
+const BLOGS_WEBPAGE_ID = `${BLOGS_URL}#webpage`;
+
 export default function BlogsPageClient() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -45,7 +51,32 @@ export default function BlogsPageClient() {
 
   return (
     <main className="min-h-screen bg-[#0B0B10] text-white">
-      
+      {/* ✅ WebPage Schema (Blogs Listing Page) */}
+      <Script
+        id="blogs-webpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": BLOGS_WEBPAGE_ID,
+            url: BLOGS_URL,
+            name: "Blogs | Zamun",
+            description:
+              "Explore Zamun’s latest blogs and insights on marketing, brand strategy, AI, EV, and deep-tech growth.",
+            isPartOf: {
+              "@type": "WebSite",
+              "@id": WEBSITE_ID,
+            },
+            about: {
+              "@type": "Organization",
+              "@id": ORG_ID,
+            },
+            inLanguage: "en",
+          }),
+        }}
+      />
+
       {/* ✅ Breadcrumb Schema (Home → Blogs) */}
       <Script
         id="blogs-breadcrumb-schema"
@@ -54,21 +85,22 @@ export default function BlogsPageClient() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": `${BLOGS_URL}#breadcrumb`,
             itemListElement: [
               {
                 "@type": "ListItem",
                 position: 1,
                 name: "Home",
-                item: "https://www.zamun.com/"
+                item: `${SITE_URL}/`,
               },
               {
                 "@type": "ListItem",
                 position: 2,
                 name: "Blogs",
-                item: "https://www.zamun.com/blogs"
-              }
-            ]
-          })
+                item: BLOGS_URL,
+              },
+            ],
+          }),
         }}
       />
 

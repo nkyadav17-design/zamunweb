@@ -26,8 +26,15 @@ export const metadata: Metadata = {
   },
 };
 
-/* ================== LOCALBUSINESS (CONTACT PAGE ONLY) ================== */
+/* ================== SCHEMAS (CONTACT PAGE ONLY) ================== */
 const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+
+const CONTACT_URL = `${SITE_URL}/contact`;
+const CONTACT_WEBPAGE_ID = `${CONTACT_URL}#webpage`;
+const CONTACT_BREADCRUMB_ID = `${CONTACT_URL}#breadcrumb`;
+
 const LOCAL_ID = `${SITE_URL}/#localbusiness`;
 
 const ADDRESS = {
@@ -40,6 +47,48 @@ const ADDRESS = {
   addressCountry: "IN",
 };
 
+/* ✅ WebPage Schema (Contact Page) */
+const contactWebPageJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": CONTACT_WEBPAGE_ID,
+  url: CONTACT_URL,
+  name: "Contact Zamun – Brand & Growth Marketing Experts",
+  description:
+    "Get in touch with Zamun for branding, marketing strategy, content, design, and growth solutions. Reach us via email, phone, or visit our Gurgaon office.",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": WEBSITE_ID,
+  },
+  about: {
+    "@type": "Organization",
+    "@id": ORG_ID,
+  },
+  inLanguage: "en",
+};
+
+/* ✅ BreadcrumbList Schema (Contact Page) */
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": CONTACT_BREADCRUMB_ID,
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: `${SITE_URL}/`,
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Contact",
+      item: CONTACT_URL,
+    },
+  ],
+};
+
+/* ✅ LocalBusiness Schema (Zamun HQ) */
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
@@ -66,6 +115,26 @@ const localBusinessJsonLd = {
 export default function ContactPage() {
   return (
     <>
+      {/* ✅ WebPage Schema – ONLY on /contact */}
+      <Script
+        id="jsonld-webpage-contact"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactWebPageJsonLd),
+        }}
+      />
+
+      {/* ✅ BreadcrumbList Schema – ONLY on /contact */}
+      <Script
+        id="jsonld-breadcrumb-contact"
+        type="application/ld+json"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd),
+        }}
+      />
+
       {/* ✅ LocalBusiness Schema – ONLY on /contact */}
       <Script
         id="jsonld-localbusiness"
@@ -79,7 +148,6 @@ export default function ContactPage() {
       <main className="min-h-screen bg-[#050816] text-white pt-20">
         {/* ================= HERO ================= */}
         <section className="relative w-full h-[65vh] flex items-center justify-center overflow-hidden">
-          {/* Background Image */}
           <Image
             src="/images/contact-us.jpg"
             alt="Contact Zamun - Brand Marketing Collaboration"
@@ -89,13 +157,9 @@ export default function ContactPage() {
             className="object-cover object-center"
           />
 
-          {/* DARK overlay for high readability */}
           <div className="absolute inset-0 bg-black/60 " />
-
-          {/* BRAND gradient overlay on top */}
           <div className="absolute inset-0 bg-gradient-to-r from-violet-600/25 via-purple-600/25 to-cyan-500/25 mix-blend-screen" />
 
-          {/* Text Content */}
           <div className="relative z-10 text-center px-6">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-white leading-tight">
               Contact Us
@@ -111,7 +175,6 @@ export default function ContactPage() {
         {/* ================= TWO-COLUMN CARD (DETAILS + FORM) ================= */}
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16">
           <div className="grid gap-8 lg:gap-10 md:grid-cols-2 items-start">
-            {/* ---- LEFT: Contact details card (dark) ---- */}
             <div className="rounded-3xl bg-[#070918] border border-white/10 px-7 py-8 sm:px-8 sm:py-9 shadow-[0_24px_80px_rgba(15,23,42,0.9)]">
               <span className="inline-flex items-center rounded-full bg-emerald-500/10 text-emerald-300 text-xs font-medium px-3 py-1 mb-4">
                 We usually reply within 24 hours
@@ -187,7 +250,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* ---- RIGHT: Contact form (light card on dark bg) ---- */}
             <div className="rounded-3xl bg-[#0b0b14] border border-white/10 shadow-[0_24px_80px_rgba(15,23,42,0.9)]">
               <ContactSection />
             </div>

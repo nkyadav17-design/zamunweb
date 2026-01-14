@@ -37,21 +37,49 @@ const services = [
   { slug: "specialized-marketing-services", name: "Specialized Marketing Services" },
 ];
 
+/**
+ * ✅ Updated Schema:
+ * - CollectionPage removed → WebPage
+ * - ItemList kept (valid schema type), but renamed via @id + name => "ServiceList"
+ * - BreadcrumbList added (Home → Services)
+ * - No CreativeWork
+ */
 const servicesIndexJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "CollectionPage",
+      "@type": "WebPage",
       "@id": `${SITE_URL}/services#webpage`,
       url: `${SITE_URL}/services`,
       name: "Services | Zamun",
+      description:
+        "Explore Zamun’s marketing strategy, brand positioning, design strategy, content marketing, campaign management, and specialized marketing services for tech-driven businesses.",
       isPartOf: { "@id": WEBSITE_ID },
       about: { "@id": ORG_ID },
       inLanguage: "en",
     },
     {
+      "@type": "BreadcrumbList",
+      "@id": `${SITE_URL}/services#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: `${SITE_URL}/`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Services",
+          item: `${SITE_URL}/services`,
+        },
+      ],
+    },
+    {
       "@type": "ItemList",
-      "@id": `${SITE_URL}/services#itemlist`,
+      "@id": `${SITE_URL}/services#servicelist`,
+      name: "ServiceList",
       itemListElement: services.map((s, i) => ({
         "@type": "ListItem",
         position: i + 1,

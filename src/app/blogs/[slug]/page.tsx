@@ -5,6 +5,8 @@ import BlogDetailPageClient from "./BlogDetailPageClient";
 import { urlFor } from "@/sanity/lib/image";
 
 const SITE_URL = "https://www.zamun.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
 
 /* ---------------- METADATA ---------------- */
 export async function generateMetadata(props: any): Promise<Metadata> {
@@ -95,6 +97,19 @@ export default async function BlogDetailPage(props: any) {
     ? new Date(post._updatedAt).toISOString()
     : datePublished;
 
+  /* ---------------- WEBPAGE SCHEMA (SEPARATE) ---------------- */
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: title,
+    description,
+    isPartOf: { "@id": WEBSITE_ID },
+    about: { "@id": ORG_ID },
+    inLanguage: "en",
+  };
+
   /* ---------------- BLOGPOSTING SCHEMA ---------------- */
   const blogSchema = {
     "@context": "https://schema.org",
@@ -136,6 +151,7 @@ export default async function BlogDetailPage(props: any) {
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
     itemListElement: [
       {
         "@type": "ListItem",
@@ -162,6 +178,7 @@ export default async function BlogDetailPage(props: any) {
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
     mainEntity: [
       {
         "@type": "Question",
@@ -208,6 +225,14 @@ export default async function BlogDetailPage(props: any) {
 
   return (
     <>
+      {/* ✅ WebPage Schema (separate) */}
+      <Script
+        id="zamun-webpage-schema"
+        type="application/ld+json"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+
       <Script
         id="zamun-blogposting-schema"
         type="application/ld+json"
