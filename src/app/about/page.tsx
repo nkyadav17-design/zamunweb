@@ -14,37 +14,6 @@ gsap.registerPlugin(ScrollTrigger);
 const SITE_URL = "https://www.zamun.com";
 const ORG_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${SITE_URL}/#website`;
-const AUTHOR_ID = `${SITE_URL}/#author`;
-
-const aboutJsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${SITE_URL}/about#webpage`,
-      url: `${SITE_URL}/about`,
-      name: "About Zamun",
-      isPartOf: { "@id": WEBSITE_ID },
-      about: { "@id": ORG_ID },
-      inLanguage: "en",
-    },
-    {
-      "@type": "Person",
-      "@id": AUTHOR_ID,
-      name: "ZamunZamun Services",
-      jobTitle: "Founder",
-      worksFor: { "@id": ORG_ID },
-      url: `${SITE_URL}/about`,
-      sameAs: [
-        "https://www.linkedin.com/company/zamun-marketing/",
-        "https://x.com/zamunservices",
-        "https://www.facebook.com/zamunservices",
-        "https://www.instagram.com/zamunservices/",
-        "https://www.youtube.com/@ZamunStudios"
-],
-    },
-  ],
-};
 
 const teamMembers = [
   {
@@ -83,18 +52,25 @@ const teamMembers = [
     image: "/images/team/Dinesh-Kumar-Graphic-Designer-Zamun.png",
   },
   {
-    name: "Akanksha Gupta",
-    role: "Experience Designer",
-    linkedin: "https://www.linkedin.com/in/akanksha-gupta-b8489b157/",
+    name: "Prashant Sharma",
+    role: "UI UX Designer",
+    linkedin: "https://www.linkedin.com/in/prashant-sharma-806a3920b/",
     x: "#",
-    image: "/images/team/Akansha-Gupta-UI-UX-Designer-Zamun.png",
+    image: "/images/team/prashant-sharma.png",
+  },
+   {
+    name: "Abhishek Rana",
+    role: "Visual Designer",
+    linkedin: "https://www.linkedin.com/in/abhishekrana-design/",
+    x: "#",
+    image: "/images/team/Abhishek-Rana-Visual-Designer.png",
   },
   {
-    name: "Anuj Verma",
+    name: "Unnatti Sharma",
     role: "Marketing and Strategy Manager",
-    linkedin: "https://www.linkedin.com/in/anuj-verma-6900b91a1/",
+    linkedin: "https://www.linkedin.com/in/unnatti-sharma/",
     x: "#",
-    image: "/images/team/Anuj-verma-Zamun.png",
+    image: "/images/team/unnatti-sharma.png",
   },
   {
     name: "Hemant Chaturvedi",
@@ -119,12 +95,79 @@ const teamMembers = [
   },
 ];
 
+/* =========================
+   ✅ BEST ABOUT PAGE SCHEMA
+   - WebPage
+   - BreadcrumbList
+   - Person (Team)
+   - ItemList (Team list)
+   - No CreativeWork
+========================= */
+const PAGE_URL = `${SITE_URL}/about`;
+const PAGE_ID = `${PAGE_URL}#webpage`;
+const BREADCRUMB_ID = `${PAGE_URL}#breadcrumb`;
+const TEAM_ID = `${PAGE_URL}#team`;
+
+const toSlugId = (name: string) =>
+  name.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+
+const teamPersons = teamMembers.map((m) => {
+  const sameAs = [m.linkedin, m.x].filter(
+    (u) => typeof u === "string" && u.startsWith("http")
+  );
+
+  return {
+    "@type": "Person",
+    "@id": `${PAGE_URL}#person-${toSlugId(m.name)}`,
+    name: m.name,
+    jobTitle: m.role,
+    worksFor: { "@id": ORG_ID },
+    image: `${SITE_URL}${m.image}`,
+    ...(sameAs.length ? { sameAs } : {}),
+  };
+});
+
+const aboutJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": PAGE_ID,
+      url: PAGE_URL,
+      name: "About Zamun",
+      description:
+        "Learn about Zamun — a marketing and brand strategy partner for tech companies, led by experienced strategists, designers, and marketers.",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": ORG_ID },
+      inLanguage: "en",
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": BREADCRUMB_ID,
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "About", item: PAGE_URL },
+      ],
+    },
+    ...teamPersons,
+    {
+      "@type": "ItemList",
+      "@id": TEAM_ID,
+      name: "Zamun Team",
+      itemListElement: teamMembers.map((m, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        item: { "@id": `${PAGE_URL}#person-${toSlugId(m.name)}` },
+      })),
+    },
+  ],
+};
+
 export default function AboutPage() {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero heading + subheading on initial load
       gsap.from(".hero-kicker", {
         opacity: 0,
         y: 20,
@@ -140,7 +183,6 @@ export default function AboutPage() {
         ease: "power3.out",
       });
 
-      // "How we do it" section paragraphs
       gsap.from(".how-we-do-it-text p", {
         scrollTrigger: {
           trigger: ".how-we-do-it-section",
@@ -154,7 +196,6 @@ export default function AboutPage() {
         ease: "power2.out",
       });
 
-      // Foundation image section - subtle scale + fade
       gsap.from(".foundation-wrapper", {
         scrollTrigger: {
           trigger: ".foundation-section",
@@ -168,7 +209,6 @@ export default function AboutPage() {
         ease: "power2.out",
       });
 
-      // Team header
       gsap.from(".team-header", {
         scrollTrigger: {
           trigger: ".team-section",
@@ -181,7 +221,6 @@ export default function AboutPage() {
         ease: "power2.out",
       });
 
-      // Team cards stagger
       const cards = gsap.utils.toArray<HTMLElement>(".team-card");
       gsap.from(cards, {
         scrollTrigger: {
@@ -196,7 +235,6 @@ export default function AboutPage() {
         ease: "power2.out",
       });
 
-      // Bottom text + CTA
       gsap.from(".bottom-copy p", {
         scrollTrigger: {
           trigger: ".bottom-section",
@@ -248,8 +286,8 @@ export default function AboutPage() {
             </h2>
 
             <h1 className="hero-heading mt-6 text-2xl sm:text-5xl font-light leading-tight">
-              Our designers have been <br /> designer-ing for years and they&apos;ve
-              done some great stuff in that time.
+              Our designers have been <br /> designer-ing for years and
+              they&apos;ve done some great stuff in that time.
             </h1>
           </div>
         </section>
@@ -310,7 +348,6 @@ export default function AboutPage() {
 
         {/* ===== Team Section ===== */}
         <section className="team-section w-full flex flex-col items-center px-6 py-24 sm:py-32">
-          {/* Header */}
           <div className="team-header mx-auto max-w-[980px] text-left px-6 sm:px-10 py-10">
             <h2 className="text-[40px] sm:text-6xl lg:text-6xl font-light leading-tight">
               Local Expertise,{" "}
@@ -324,14 +361,12 @@ export default function AboutPage() {
             </p>
           </div>
 
-          {/* Cards */}
           <div className="team-grid mt-14 grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {teamMembers.map((m) => (
               <div
                 key={m.name}
                 className="team-card rounded-2xl bg-white text-black overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
               >
-                {/* Top gradient tile with image */}
                 <div className="relative flex justify-center">
                   <div className="h-48 w-full bg-gradient-to-br from-indigo-300 via-violet-300 to-pink-300" />
                   <div className="absolute bottom-0 h-40 flex items-end justify-center">
@@ -344,14 +379,12 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Info */}
                 <div className="pt-7 px-5 pb-5">
                   <h4 className="text-gray-900 font-semibold">{m.name}</h4>
                   <p className="mt-1 text-sm bg-gradient-to-r from-indigo-500 to-purple-500 bg-clip-text text-transparent font-semibold">
                     {m.role}
                   </p>
 
-                  {/* Socials */}
                   <div className="mt-4 flex items-center gap-4">
                     <a
                       href={m.linkedin}
@@ -363,16 +396,19 @@ export default function AboutPage() {
                     >
                       <i className="ri-linkedin-fill text-xl"></i>
                     </a>
-                    <a
-                      href={m.x}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 transition"
-                      aria-label="X"
-                      title={`View ${m.name}'s X profile`}
-                    >
-                      <i className="ri-twitter-x-fill text-xl"></i>
-                    </a>
+
+                    {m.x && m.x.startsWith("http") && (
+                      <a
+                        href={m.x}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-gray-300 hover:bg-gray-100 transition"
+                        aria-label="X"
+                        title={`View ${m.name}'s X profile`}
+                      >
+                        <i className="ri-twitter-x-fill text-xl"></i>
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>
